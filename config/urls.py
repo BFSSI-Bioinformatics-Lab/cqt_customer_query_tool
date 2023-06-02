@@ -14,6 +14,10 @@ urlpatterns = [
     path("users/", include("cqt_customer_query_tool.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
+    
+    # API
+    path("api/", include('api.urls')),
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
