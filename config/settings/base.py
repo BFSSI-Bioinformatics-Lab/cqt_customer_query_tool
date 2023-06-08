@@ -84,7 +84,7 @@ LOCAL_APPS = [
     "cqt_customer_query_tool.users",
     # Your stuff: custom apps go here
     "api",
-    # "query"
+    "query"
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

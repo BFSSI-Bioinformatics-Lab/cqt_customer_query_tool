@@ -68,7 +68,8 @@ class Query(models.Model):
     number_RDIMS = models.IntegerField(blank=True, null=True)
     
     date_input = models.DateTimeField(default=timezone.now)
-    date_BHH_received = models.DateField(blank=True, null=True)
+    date_due = models.DateField(blank=True, null=True)
+    date_BMH_received = models.DateField(blank=True, null=True)
     date_assigned_to_evaluator = models.DateField(blank=True, null=True)
     date_to_sections_head_for_approval = models.DateField(blank=True, null=True)
     date_to_customer = models.DateField(blank=True, null=True)
@@ -85,8 +86,8 @@ class Query(models.Model):
     pathogen = models.CharField(max_length=50, choices=PATHOGEN, default='Not Applicable / Other')
     category = models.CharField(max_length=50, choices=CATEGORY, default='Not Applicable / Other')
     
-    affiliations = models.DateField(blank=True, null=True)
-    query_redirected_to = models.DateField(blank=True, null=True)
+    affiliations = models.CharField(max_length=500, blank=True, null=True)
+    query_redirected_to = models.CharField(max_length=500, blank=True, null=True)
     additiona_information = models.TextField(null=True, blank=True)
     
     updated = models.DateTimeField(auto_now=True)
