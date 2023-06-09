@@ -76,7 +76,8 @@ class Query(models.Model):
     
     evaluator = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     section_head = models.CharField(max_length=500, blank=True, null=True)
-    bmh_scientific_evaluator_lead = models.CharField(max_length=500, blank=True, null=True)
+    # This is the same as evaluator
+    # bmh_scientific_evaluator_lead = models.CharField(max_length=500, blank=True, null=True)
     name_of_requestor = models.CharField(max_length=500, blank=True, null=True)
     subject_line = models.TextField(null=True, blank=True)
     query_text = models.TextField(null=True, blank=True)
@@ -84,6 +85,7 @@ class Query(models.Model):
     
     key_words = models.CharField(max_length=500, blank=True, null=True)
     pathogen = models.CharField(max_length=50, choices=PATHOGEN, default='Not Applicable / Other')
+    food = models.CharField(max_length=50, choices=FOOD, default='Not Applicable / Other')
     category = models.CharField(max_length=50, choices=CATEGORY, default='Not Applicable / Other')
     
     affiliations = models.CharField(max_length=500, blank=True, null=True)
