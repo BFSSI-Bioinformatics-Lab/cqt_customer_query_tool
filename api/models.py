@@ -101,7 +101,7 @@ class Query(models.Model):
         verbose_name_plural = 'Queries'
 
     def __str__(self):
-        return f"{self.id}: {self.title}"
+        return f"{self.id}: {self.subject_line}"
 
     # How to find the url of any entry
     # def get_absolute_url(self):
