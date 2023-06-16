@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block precontent %}
+
+  <form method="GET" action="." >
+        <div class="form-row d-flex flex-row justify-content-between mb-4">
+
+          <div class="form-group">
+              <div class="input-group" style="width: 150px">
+                  <input class="form-control py-2 border-right-0 border" type="search"
+                         name="status" placeholder="Status"/>
+
+              </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group" style="width: 150px">
+                <input class="form-control py-2 border-right-0 border" type="search"
+                       name="evaluator" placeholder="Evaluator"/>
+            </div>
+          </div>
+
+          <div class="form-group">
+              <div class="input-group" style="width: 230px">
+                  <input class="form-control py-2 border-right-0 border" type="search"
+                         name="keywords" placeholder="Keywords..."/>
+{#                    <span class="input-group-append">#}
+{#                        <div class="input-group-text bg-transparent">#}
+{#                            <i class="fa fa-search"></i>#}
+{#                        </div>#}
+{#                    </span>#}
+              </div>
+          </div>
+          <div class="form-group">
+              <div class="input-group" style="width: 170px">
+                  <input class="form-control py-2 border-right-0 border" type="search"
+                         name="pathogen" placeholder="Pathogen"/>
+{#                    <span class="input-group-append">#}
+{#                        <div class="input-group-text bg-transparent">#}
+{#                            <i class="fa fa-search"></i>#}
+{#                        </div>#}
+{#                    </span>#}
+              </div>
+          </div>
+          <div class="form-group">
+              <div class="input-group" style="width: 250px">
+                  <input class="form-control py-2 border-right-0 border" type="search"
+                         name="" placeholder="In content..."/>
+{#                    <span class="input-group-append">#}
+{#                        <div class="input-group-text bg-transparent">#}
+{#                            <i class="fa fa-search"></i>#}
+{#                        </div>#}
+{#                    </span>#}
+              </div>
+          </div>
+          <button type="submit"
+                  class="btn btn-outline-steel btn-sm">Search</button>
+        </div>
+  </form>
+{% endblock %}
+
+
+{% block content %}
+    <h1>Home page</h1>
+
+  {% if queries %}
+    {% for query in queries %}
+      <article class="media content-section">
+        <div class="media-body">
+          <div class="article-metadata d-flex flex-column justify-content-between">
+            <div class="d-flex flex-row mb-2 justify-content-between">
+              <div class="d-flex flex-row">
+                <h4 class="mr-2 mb-0" style="color: #007880; font-size: 22px"
+                 href="#">{{ query.evaluator }}</h4>
+<!-- {#              <a class="mr-2 mb-0" style="color: #007880; font-size: 22px"#}
+{#                 href="{% url 'user_list' query.author.username %}">{{ query.evaluator }}</a>#} -->
+                <small class="text-muted d-flex align-items-end" style="margin-left: 10px;">
+                    RDIMS #{{ query.number_RDIMS }}</small>
+                <small class=" d-flex align-items-end" style="margin-left: 10px;">
+                    Last updated: <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.updated|date:'F d, Y' }}</span> </small>
+              </div>
+            
+              <div>
+                {% if query.get_status_display == 'Completed' %}
+                    <small class="article-footer bg-final status-bg">{{ query.get_status_display }}</small>
+                {% else %}
+                    <small class="article-footer bg-progress status-bg">{{ query.get_status_display }}</small>
+                {% endif %}
+                {% if query.get_category_display == 'Guidance' %}
+                    <small class="article-footer bg-final status-bg"
+                    >{{ query.get_category_display }}</small>
+                {% else %}
+                    <small class="article-footer bg-archived status-bg">{{ query.get_category_display }}</small>
+                {% endif %}
+
+                <small class="text-muted">{{ query.food }}</small>
+              </div>
+            </div>
+            
+            <div class="d-flex flex-row mb-2 justify-content-between">
+                <div class="d-flex flex-row">
+                    <small class=" d-flex align-items-end" style="margin-left: 1px;">
+                        Date in to BMH: 
+                        <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_BMH_received|date:'F d, Y' }}</span> </small>
+                    <span class="vr"></span>
+                    <small class=" d-flex align-items-end" style="margin-left: 10px;">
+                        Date in to Evaluator: 
+                        <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_assigned_to_evaluator|date:'F d, Y' }}</span> </small>
+                    <span class="vr"></span>
+                        <small class=" d-flex align-items-end" style="margin-left: 10px;">
+                        Date in to Evaluator: 
+                        <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_assigned_to_evaluator|date:'F d, Y' }}</span> </small>
+                    <span class="vr"></span>
+                        <small class=" d-flex align-items-end" style="margin-left: 10px;">
+                        Date in to Evaluator: 
+                        <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_assigned_to_evaluator|date:'F d, Y' }}</span> </small>
+                </div>
+              
+                <!-- <div>
+                  {% if query.get_status_display == 'Completed' %}
+                      <small class="article-footer bg-final status-bg">{{ query.get_status_display }}</small>
+                  {% else %}
+                      <small class="article-footer bg-progress status-bg">{{ query.get_status_display }}</small>
+                  {% endif %}
+                  {% if query.get_category_display == 'Guidance' %}
+                      <small class="article-footer bg-final status-bg"
+                      >{{ query.get_category_display }}</small>
+                  {% else %}
+                      <small class="article-footer bg-archived status-bg">{{ query.get_category_display }}</small>
+                  {% endif %}
+  
+                  <small class="text-muted">{{ query.food }}</small>
+                </div> -->
+              </div>
+
+          </div>
+          <h2><a class="article-title mt-2" href="#"
+          target="_blank">{{ query.subject_line }}</a></h2>
+{#            Add style = white-space:nowrap to add 3 points at the end#}
+          <p class="article-content  text-truncate"
+             style="max-height: 70px; ">{{ query.query_text }}</p>
+          <small class="article-footer bg-yellow key-bg">{{ query.key_words }}</small>
+
+        </div>
+      </article>
+    {% endfor %}
+  {% else %}
+    <h3 class="text-center mt-5">No entries match your search</h3>
+  {% endif %}
+
+
+  <a id="back-to-top" href="#" class="btn btn-lg back-to-top bg-steel text-white"
+     role="button">Back to top</a>
+
+  <div class="d-flex justify-content-center">
+{#  Show pagination of entries#}
+    {% if is_paginated %}
+
+      {% if page_obj.has_previous %}
+        <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin" href="?page=1">First</a>
+        <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin"
+           href="?page={{ page_obj.previous_page_number }}"><</a>
+      {% endif %}
+
+  {#    Show number of pages#}
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <a class="btn btn-steel btn-sm mb-4 btn-l-margin" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin"
+           href="?page={{ page_obj.next_page_number }}"> ></a>
+        <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin"
+           href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+      {% endif %}
+
+    {% endif %}
+  </div>
+{% endblock content %}
+
+{% block extra_javascript %}
+
+  <script>
+    $(document).ready(function(){
+      $(window).scroll(function () {
+        if ($(this).scrollTop() > 50) {
+          $('#back-to-top').fadeIn();
+        } else {
+          $('#back-to-top').fadeOut();
+        }
+      });
+      // scroll body to 0px on click
+      $('#back-to-top').click(function () {
+        $('body,html').animate({
+          scrollTop: 0
+        }, 100);
+        return false;
+      });
+    });
+  </script>
+
+{% endblock extra_javascript %}

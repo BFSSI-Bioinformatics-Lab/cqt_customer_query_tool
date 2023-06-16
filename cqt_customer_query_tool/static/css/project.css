@@ -11,3 +11,253 @@
   background-color: #f2dede;
   border-color: #eed3d7;
 }
+
+
+body {
+  background: #fcfcfc;
+  color: #333333;
+  margin-top: 5rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+}
+
+ul {
+  margin: 0;
+}
+
+.bg-steel {
+  background-color: #3B525F;
+}
+
+.bg-yellow {
+  background-color: #f6dbbb;
+}
+
+.bg-final {
+  background-color: #aaf0c6;
+}
+
+.bg-progress {
+  background-color: #f0c6aa;
+}
+
+.bg-active {
+  background-color: #bbf3ed;
+}
+
+.bg-archived {
+  background-color:  #d7d7d7;
+}
+/* final= #aaf0c6 | in progress= #f0c6aa  */
+/* active= #bbf3ed   | archived= #d7d7d7  */
+
+.logofont {
+  font-family: 'Philosopher', serif !important;
+  font-size: 1.5rem !important;
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #cbd5db;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.article-title {
+  color: #444444;
+  text-decoration: none;
+}
+
+a.article-title:hover {
+  color: #428bca;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.article-metadata a {
+  /*color: #5f788a;*/
+  text-decoration: none;
+}
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.article-metadata small {
+  /*padding-left: 10px;*/
+}
+
+footer {
+  padding-bottom: 0px;
+  margin-top: 1rem;
+  margin-bottom: 0;
+  /*border-top: 1px solid #e3e3e3;*/
+}
+
+.status-bg {
+  padding: 8px;
+  margin-top: 3px;
+  border-radius: 20px;
+  margin-left: 2px;
+}
+
+.key-bg {
+  padding: 5px;
+  margin-top: 3px;
+  border-radius: 20px;
+}
+
+/* Button left margin*/
+.btn-l-margin {
+  margin-left: 10px;
+}
+
+.btn-outline-success:hover {
+  background-color: #729a8d;
+  border-color: #729a8d;
+}
+
+.btn-orange {
+  background: #FFCDAC;
+  color: #444444;
+  border-color: #FFCDAC;
+}
+
+.btn-orange:hover {
+  background: #ffae79;
+  /*color: white;*/
+  border-color: #ffae79;
+}
+
+.btn-green {
+  background: #A3DDCA;
+  color: #444444;
+  border-color: #A3DDCA;
+}
+
+.btn-green:hover {
+  background: #92c6b5;
+  /*color: white;*/
+  border-color: #92c6b5;
+}
+
+.btn-red {
+  background: #f0aab1;
+  color: #444444;
+  border-color: #f0aab1;
+}
+
+.btn-red:hover {
+  background: #ea8992;
+  /*color: white;*/
+  border-color: #ea8992;
+}
+
+.btn-steel {
+  color: white;
+  background-color: #5f788a;
+  border-color: #5f788a;
+
+}
+
+.btn-outline-steel {
+  color: #555;
+  border-color: #5f788a;
+}
+
+.btn-outline-steel:hover {
+  color: white;
+  border-color: #5f788a;
+  background-color: #5f788a;
+}
+
+/* Data tables styling*/
+.paginate_button {
+  color: #555;
+  /*border-color: #5f788a;*/
+  margin: 0 5px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid #5f788a;
+  padding: .25rem .5rem;
+  font-size: .875rem;
+  border-radius: .2rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.current {
+  color: white;
+  background-color: #5f788a;
+  border-color: #5f788a;
+}
+
+.dataTables_filter {
+  margin: 10px 0;
+}
+
+.dataTables_paginate {
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* Scroll up button*/
+.back-to-top {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: none;
+}
+
+/*.article-svg {*/
+/*  width: 25px;*/
+/*  height: 25px;*/
+/*  vertical-align: middle;*/
+/*}*/
+
+/*.account-img {*/
+/*  height: 125px;*/
+/*  width: 125px;*/
+/*  margin-right: 20px;*/
+/*  margin-bottom: 16px;*/
+/*}*/
+
+/*.account-heading {*/
+/*  font-size: 2.5rem;*/
+/*}*/
