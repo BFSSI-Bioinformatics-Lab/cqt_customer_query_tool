@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h3 class="mb-3">Entries by: {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h3>
+  {% for query in queries %}
+      <article class="media content-section">
+        <div class="media-body">
+          <div class="article-metadata d-flex flex-row justify-content-between">
+            <div class="d-flex flex-row mb-2">
+              <a class="mr-2 mb-0" style="color: #007880; font-size: 22px"
+                 href="{% url 'user_list' query.evaluator.username %}">{{ query.evaluator }}</a>
+              <small class="text-muted d-flex align-items-end" style="margin-left: 10px;">
+                {{ query.updated|date:'F d, Y' }}</small>
+            </div>
+            <div>
+              <small class="text-muted">{{ query.food }}</small>
+            </div>
+          </div>
+          <h2><a class="article-title mt-2" href="{% url 'query_detail' pk=query.id %}"
+          >{{ query.subject_line }}</a></h2>
+{#            Add style = white-space:nowrap to add 3 points at the end#}
+          <p class="article-content  text-truncate"
+             style="max-height: 70px; ">{{ query.query_text }}</p>
+          <small class="article-footer bg-yellow key-bg">{{ query.key_words }}</small>
+
+        </div>
+      </article>
+  {% endfor %}
+
+  <div class="d-flex justify-content-center">
+{#  Show pagination of entries#}
+    {% if is_paginated %}
+
+      {% if page_obj.has_previous %}
+        <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin" href="?page=1">First</a>
+        <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin"
+           href="?page={{ page_obj.previous_page_number }}"><</a>
+      {% endif %}
+
+  {#    Show number of pages#}
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <a class="btn btn-steel btn-sm mb-4 btn-l-margin" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin"
+           href="?page={{ page_obj.next_page_number }}"> ></a>
+        <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin"
+           href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+      {% endif %}
+
+    {% endif %}
+  </div>
+{% endblock content %}

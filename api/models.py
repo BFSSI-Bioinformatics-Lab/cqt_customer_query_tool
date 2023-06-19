@@ -11,6 +11,14 @@ STATUS_CHOICES = (
     ('COMPLETED', 'Completed')
 )
 
+QUARTER = (
+    ('Q1', 'Q1'),
+    ('Q2', 'Q2'),
+    ('Q3', 'Q3'),
+    ('Q4', 'Q4'),
+    ('Not Applicable / Other', 'Not Applicable / Other')
+)
+
 PATHOGEN = (
     ('Campylobacter', 'Campylobacter'),
     ('Clostridium', 'Clostridium'),
@@ -66,6 +74,7 @@ class Query(models.Model):
 
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='IN_PROGRESS')
     number_RDIMS = models.IntegerField(blank=True, null=True)
+    quarter = models.CharField(max_length=50, choices=QUARTER, default='Not Applicable / Other')
     
     date_input = models.DateTimeField(default=timezone.now)
     date_due = models.DateField(blank=True, null=True)
@@ -90,7 +99,7 @@ class Query(models.Model):
     
     affiliations = models.CharField(max_length=500, blank=True, null=True)
     query_redirected_to = models.CharField(max_length=500, blank=True, null=True)
-    additiona_information = models.TextField(null=True, blank=True)
+    additional_information = models.TextField(null=True, blank=True)
     
     updated = models.DateTimeField(auto_now=True)
     history = HistoricalRecords()

@@ -60,86 +60,93 @@
 
 
 {% block content %}
-    <h1>Home page</h1>
+    
 
   {% if queries %}
     {% for query in queries %}
       <article class="media content-section">
         <div class="media-body">
-          <div class="article-metadata d-flex flex-column justify-content-between">
-            <div class="d-flex flex-row mb-2 justify-content-between">
-              <div class="d-flex flex-row">
-                <h4 class="mr-2 mb-0" style="color: #007880; font-size: 22px"
-                 href="#">{{ query.evaluator }}</h4>
-<!-- {#              <a class="mr-2 mb-0" style="color: #007880; font-size: 22px"#}
-{#                 href="{% url 'user_list' query.author.username %}">{{ query.evaluator }}</a>#} -->
-                <small class="text-muted d-flex align-items-end" style="margin-left: 10px;">
-                    RDIMS #{{ query.number_RDIMS }}</small>
-                <small class=" d-flex align-items-end" style="margin-left: 10px;">
-                    Last updated: <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.updated|date:'F d, Y' }}</span> </small>
-              </div>
-            
-              <div>
-                {% if query.get_status_display == 'Completed' %}
-                    <small class="article-footer bg-final status-bg">{{ query.get_status_display }}</small>
-                {% else %}
-                    <small class="article-footer bg-progress status-bg">{{ query.get_status_display }}</small>
-                {% endif %}
-                {% if query.get_category_display == 'Guidance' %}
-                    <small class="article-footer bg-final status-bg"
-                    >{{ query.get_category_display }}</small>
-                {% else %}
-                    <small class="article-footer bg-archived status-bg">{{ query.get_category_display }}</small>
-                {% endif %}
+            <div class="article-metadata d-flex flex-column justify-content-between">
+                <div class="d-flex flex-row mb-2 justify-content-between">
+                    <div class="d-flex flex-row">
+                        <!-- <h4 class="mr-2 mb-0" style="color: #007880; font-size: 22px"
+                        href="#">{{ query.evaluator }}</h4> -->
+                        <h4><a class="mr-2 mb-0" style="color: #007880; font-size: 22px"
+                        href="{% url 'user_list' query.evaluator.username %}">{{ query.evaluator }}</a></h4>
+                        <small class="text-muted d-flex align-items-center" style="margin-left: 10px;">
+                            RDIMS #{{ query.number_RDIMS }}</small>
+                        <small class=" d-flex align-items-center" style="margin-left: 10px;">
+                            Last updated: <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.updated|date:'F d, Y' }}</span> </small>
+                    </div>
+                
+                    <div>
+                        {% if query.get_status_display == 'Completed' %}
+                            <small class="article-footer bg-final status-bg">{{ query.get_status_display }}</small>
+                        {% else %}
+                            <small class="article-footer bg-progress status-bg">{{ query.get_status_display }}</small>
+                        {% endif %}
+                        <!-- {% if query.get_category_display == 'Guidance' %}
+                            <small class="article-footer bg-final status-bg"
+                            >{{ query.get_category_display }}</small>
+                        {% else %}
+                            <small class="article-footer bg-archived status-bg">{{ query.get_category_display }}</small>
+                        {% endif %} -->
 
-                <small class="text-muted">{{ query.food }}</small>
-              </div>
-            </div>
-            
-            <div class="d-flex flex-row mb-2 justify-content-between">
-                <div class="d-flex flex-row">
-                    <small class=" d-flex align-items-end" style="margin-left: 1px;">
-                        Date in to BMH: 
-                        <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_BMH_received|date:'F d, Y' }}</span> </small>
-                    <span class="vr"></span>
-                    <small class=" d-flex align-items-end" style="margin-left: 10px;">
-                        Date in to Evaluator: 
-                        <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_assigned_to_evaluator|date:'F d, Y' }}</span> </small>
-                    <span class="vr"></span>
-                        <small class=" d-flex align-items-end" style="margin-left: 10px;">
-                        Date in to Evaluator: 
-                        <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_assigned_to_evaluator|date:'F d, Y' }}</span> </small>
-                    <span class="vr"></span>
-                        <small class=" d-flex align-items-end" style="margin-left: 10px;">
-                        Date in to Evaluator: 
-                        <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_assigned_to_evaluator|date:'F d, Y' }}</span> </small>
+                        <small class="text-muted">{{ query.food }}</small>
+                    </div>
                 </div>
-              
-                <!-- <div>
-                  {% if query.get_status_display == 'Completed' %}
-                      <small class="article-footer bg-final status-bg">{{ query.get_status_display }}</small>
-                  {% else %}
-                      <small class="article-footer bg-progress status-bg">{{ query.get_status_display }}</small>
-                  {% endif %}
-                  {% if query.get_category_display == 'Guidance' %}
-                      <small class="article-footer bg-final status-bg"
-                      >{{ query.get_category_display }}</small>
-                  {% else %}
-                      <small class="article-footer bg-archived status-bg">{{ query.get_category_display }}</small>
-                  {% endif %}
-  
-                  <small class="text-muted">{{ query.food }}</small>
+                
+                <div class="d-flex flex-row mb-2 justify-content-around">
+                    <div class="d-flex flex-row">
+                        <small class=" d-flex align-items-end" style="margin-left: 1px;">
+                            Date in to BMH: 
+                            <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_BMH_received|date:'F d, Y' }}</span> </small>
+                        <span class="vr"></span>
+                        <small class=" d-flex align-items-end" style="margin-left: 10px;">
+                            Date in to Evaluator: 
+                            <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_assigned_to_evaluator|date:'F d, Y' }}</span> </small>
+                        <span class="vr"></span>
+                            <small class=" d-flex align-items-end" style="margin-left: 10px;">
+                                Date in to Section Head: 
+                            <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_to_sections_head_for_approval|date:'F d, Y' }}</span> </small>
+                        
+                    </div>
+                </div>
+
+                <!-- <div class="d-flex flex-row mb-2 justify-content-around">     
+                        <small class=" d-flex align-items-end" style="margin-left: 10px;">
+                            Date Due: 
+                            <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_due|date:'F d, Y' }}</span> </small>
+                        <span class="vr"></span>
+                        <small class=" d-flex align-items-end" style="margin-left: 10px;">
+                            Date out of BMH:  
+                            <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_to_customer|date:'F d, Y' }}</span> </small>   
                 </div> -->
-              </div>
 
-          </div>
-          <h2><a class="article-title mt-2" href="#"
-          target="_blank">{{ query.subject_line }}</a></h2>
-{#            Add style = white-space:nowrap to add 3 points at the end#}
-          <p class="article-content  text-truncate"
-             style="max-height: 70px; ">{{ query.query_text }}</p>
-          <small class="article-footer bg-yellow key-bg">{{ query.key_words }}</small>
+            </div>
 
+            <h2 class="mt-2">
+                <a class="article-title mt-2" href="{% url 'query_detail' pk=query.id %}"
+            target="_blank">{{ query.subject_line }}</a></h2>
+                <!-- Add style = white-space:nowrap to add 3 points at the end -->
+            <p class="article-content  text-truncate"
+             style="max-height: 70px; ">{{ query.query_text }}
+            </p>
+
+            <small class="article-footer bg-yellow key-bg">{{ query.key_words }}</small>
+
+            <hr>
+            <div class="d-flex flex-row mb-2 justify-content-around">
+                      
+                <small class=" d-flex align-items-end" style="margin-left: 10px;">
+                    Date Due: 
+                    <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_due|date:'F d, Y' }}</span> </small>
+                <span class="vr"></span>
+                <small class=" d-flex align-items-end" style="margin-left: 10px;">
+                    Date out of BMH:  
+                    <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_to_customer|date:'F d, Y' }}</span> </small>
+                
+            </div>
         </div>
       </article>
     {% endfor %}

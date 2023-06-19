@@ -4,8 +4,8 @@ from . import views
 
 urlpatterns = [
     path('', views.QueryView.as_view(), name='home_page'),
-#     path('user/<str:username>', views.UserListView.as_view(), name='user_list'),
-#     path('entry/<int:pk>/', views.EntryDetailView.as_view(), name='entry_detail'),
+    path('user/<str:username>', views.UserListView.as_view(), name='user_list'),
+    path('query/<int:pk>/', views.QueryDetailView.as_view(), name='query_detail'),
 #     path('entry/new/', views.EntryCreateView.as_view(), name='entry_create'),
 #     path('entry/<int:pk>/update/', views.EntryUpdateView.as_view(), name='entry_update'),
 #     path('entry/<int:pk>/delete/', views.EntryDeleteView.as_view(), name='entry_delete'),

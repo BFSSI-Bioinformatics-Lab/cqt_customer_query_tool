@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <article class="media content-section">
+    <div class="media-body">
+      <div class="article-metadata ">
+        <div class="d-flex flex-row justify-content-between mb-2">
+          <div class="">
+{#            <a class="mr-3 d-flex flex-row align-items-center" style="color: #007880;"#}
+{#                href="{% url 'user_list' query.evaluator.username %}">{{ query.evaluator }}</a>#}
+            <p>QSM <span style="color: #007880; margin-left: 5px;">
+              {{ query.id }}</span>  <span style="margin: 0 5px">|</span>  Last updated by
+            <span style="color: #007880; margin-left: 4px;">{{ query.evaluator }}</span></p>
+            {% if query.date_input|date:'F d, Y' == query.updated|date:'F d, Y' %}
+              <div>
+                <small class="align-items-end font-weight-bold font-italic">
+                  Posted:</small>
+                <small class="text-muted  align-items-end" style="margin-right: 5px">
+                {{ query.date_input|date:'F d, Y' }}</small>
+              </div>
+            {% elif query.date_input|date:'F d, Y' != query.updated|date:'F d, Y' %}
+              <div>
+                <small class="align-items-end font-weight-bold font-italic">
+                  Posted:</small>
+                <small class="text-muted  align-items-end" style="margin-right: 5px">
+                {{ query.date_input|date:'F d, Y' }}</small>
+  {#              separator between dates#}
+                <small>|</small>
+                <small class="align-items-end font-weight-bold font-italic"
+                       style="margin-left: 5px"> Updated:</small>
+                <small class="text-muted  align-items-end">
+                {{ query.updated|date:'F d, Y' }}</small>
+              </div>
+
+            {% endif %}
+            
+            <div class="mt-2">
+              {% if query.get_status_display == 'Completed' %}
+                <small class="article-footer bg-final status-bg">{{ query.get_status_display }}</small>
+              {% else %}
+                <small class="article-footer bg-progress status-bg">{{ query.get_status_display }}</small>
+              {% endif %}
+              {% if query.get_food_display == 'Beef' %}
+                <small class="article-footer bg-final status-bg"
+                >Food: {{ query.get_food_display }}</small>
+              {% else %}
+                <small class="article-footer bg-archived status-bg">Food: {{ query.get_food_display }}</small>
+              {% endif %}
+            </div>
+          </div>
+
+          <div>
+            <small class="text-muted d-flex flex-row justify-content-end">{{ query.pathogen }}</small>
+
+            <div class="d-flex flex-row justify-content-end mt-2 mb-2">
+              <a class="btn btn-orange btn-sm"
+                   href="#">Update Query</a>
+              <a class="btn btn-red btn-l-margin btn-sm"
+                   href="#">Delete Query</a>
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+      <h2 class="article-title mt-2">{{ query.subject_line }}</h2>
+      <p class="article-content" style="overflow: auto;">{{ query.query_text }}</p>
+{#      <h4 class="article-content" style="overflow: auto;">Links:</h4>#}
+      <hr>
+      <h5>Response:</h5>
+      <p class="article-content" style="overflow: auto;">{{ query.query_response }}</p>
+
+      <small class="article-footer bg-yellow key-bg">{{ query.key_words }}</small>
+
+    </div>
+{#    {% if query.evaluator == user %}#}
+{#      <div style="margin-top: 20px;">#}
+{#        <a class="btn btn-green btn-sm"#}
+{#             href="{% url "query_update" pk=query.id%}">Update Query</a>#}
+{#        <a class="btn btn-red btn-l-margin btn-sm"#}
+{#             href="{% url "query_delete" pk=query.id%}">Delete Query</a>#}
+{#      </div>#}
+{#    {% endif %}#}
+
+  </article>
+
+{% endblock content %}

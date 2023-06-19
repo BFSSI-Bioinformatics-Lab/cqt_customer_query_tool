@@ -20,3 +20,18 @@ class QueryView(LoginRequiredMixin, ListView):
     # paginate_by = 10
 #     order entries from newest to oldest
     ordering = ['-updated']
+
+class UserListView(LoginRequiredMixin, ListView):
+    model = Query
+    template_name = 'Query/user_query.html'
+    context_object_name = 'queries'
+    paginate_by = 4
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Query.objects.filter(evaluator=user).order_by('-updated')
+
+class QueryDetailView(LoginRequiredMixin, DetailView):
+    model = Query
+    template_name = 'Query/detail_page.html'
+    context_object_name = 'query'
