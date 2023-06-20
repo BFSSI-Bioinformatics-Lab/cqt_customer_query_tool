@@ -113,5 +113,5 @@ class Query(models.Model):
         return f"{self.id}: {self.subject_line}"
 
     # How to find the url of any entry
-    # def get_absolute_url(self):
-    #     return reverse('entry_detail', kwargs={'pk': self.pk})
+    def get_absolute_url(self):
+        return reverse('query_detail', kwargs={'pk': self.pk})

@@ -55,9 +55,9 @@
 
             <div class="d-flex flex-row justify-content-end mt-2 mb-2">
               <a class="btn btn-orange btn-sm"
-                   href="#">Update Query</a>
+                   href="{% url 'query_update' pk=query.id %}">Update Query</a>
               <a class="btn btn-red btn-l-margin btn-sm"
-                   href="#">Delete Query</a>
+                   href="{% url 'query_delete' pk=query.id %}">Delete Query</a>
             </div>
 
           </div>
