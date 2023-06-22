@@ -42,10 +42,10 @@
                 <small class="article-footer bg-progress status-bg">{{ query.get_status_display }}</small>
               {% endif %}
               {% if query.get_food_display == 'Beef' %}
-                <small class="article-footer bg-final status-bg"
-                >Food: {{ query.get_food_display }}</small>
+                <small class="article-footer bg-q4 status-bg"
+                >{{ query.get_quarter_display }}</small>
               {% else %}
-                <small class="article-footer bg-archived status-bg">Food: {{ query.get_food_display }}</small>
+                <small class="article-footer bg-q1 status-bg">{{ query.get_quarter_display }}</small>
               {% endif %}
             </div>
           </div>

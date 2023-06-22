@@ -50,6 +50,26 @@ ul {
 .bg-archived {
   background-color:  #d7d7d7;
 }
+
+.bg-q1 {
+  background-color:  #ECE5C7;
+}
+
+.bg-q2 {
+  background-color: #CDC2AE;
+}
+
+.bg-q3 {
+  background-color: #C2DEDC;
+  font-weight: 500;
+}
+
+.bg-q4 {
+  background-color: #116A7B;
+  color: #e3e3e3;
+  font-weight: 500;
+}
+
 /* final= #aaf0c6 | in progress= #f0c6aa  */
 /* active= #bbf3ed   | archived= #d7d7d7  */
 

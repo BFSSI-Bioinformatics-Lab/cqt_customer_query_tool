@@ -85,3 +85,16 @@ class QueryDeleteView(LoginRequiredMixin,  DeleteView):
     #     if self.request.user == item.author:
     #         return True
     #     return False
+    
+class QueryHistoryView(LoginRequiredMixin, ListView):
+    template_name = "Query/query_history_list.html"
+
+    def get_queryset(self):
+        history = Query.history.all()
+        return history
+
+
+class HistoryDetailView(LoginRequiredMixin, DetailView):
+    model = Query.history.model
+    template_name = 'Query/history_detail.html'
+    context_object_name = 'history'

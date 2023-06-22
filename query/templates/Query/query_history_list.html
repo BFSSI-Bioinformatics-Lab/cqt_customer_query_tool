@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{#{% load bootstrap_icons %}#}
+
+{% block content %}
+  <h2 class="text-center"> Query's History</h2>
+  <table id="example" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+      <tr>
+        <th class="text-center">Record #</th>
+        <th class="text-center">Title</th>
+        <th class="text-center">History Date/Time</th>
+        <th class="text-center">Date received</th>
+{#        <th class="text-center">status</th>#}
+        <th class="text-center">History Action</th>
+        <th class="text-center">History User</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for t in object_list %}
+        <tr>
+          <td class="text-center"><a href="#"
+                                     target="_blank">{{ t.id }}</a></td>
+          <td>{{ t.subject_line }}</td>
+          <td class="text-center">{{ t.history_date|date:'F d, Y' }}</td>
+          <td class="text-center">{{ t.date_BMH_received|date:'F d, Y' }}</td>
+{#          <td class="text-center">{{ t.get_status_display }}</td>#}
+          <td class="text-center">{{ t.get_history_type_display }}</td>
+          <td class="text-center">{{ t.history_user }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock content %}
+{% block extra_javascript %}
+
+
+  <script>
+      $(document).ready(function () {
+      let table = $('#example').DataTable( {
+          "paging": true,
+          "searching": true,
+          "autoWidth": false,
+      }
+      );
+  } );
+  </script>
+
+{% endblock extra_javascript %}

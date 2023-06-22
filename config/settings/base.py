@@ -140,6 +140,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'simple_history.middleware.HistoryRequestMiddleware', # added to track users in simple_history
 ]
 
 # STATIC
