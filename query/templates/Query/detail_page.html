@@ -41,17 +41,21 @@
               {% else %}
                 <small class="article-footer bg-progress status-bg">{{ query.get_status_display }}</small>
               {% endif %}
-              {% if query.get_food_display == 'Beef' %}
-                <small class="article-footer bg-q4 status-bg"
+              {% if query.get_quarter_display == 'Q1' %}
+                <small class="article-footer bg-q1 status-bg"
                 >{{ query.get_quarter_display }}</small>
+              {% elif query.get_quarter_display == 'Q2' %}
+                <small class="article-footer bg-q2 status-bg">{{ query.get_quarter_display }}</small>
+              {% elif query.get_quarter_display == 'Q3' %}
+                <small class="article-footer bg-q3 status-bg">{{ query.get_quarter_display }}</small>
               {% else %}
-                <small class="article-footer bg-q1 status-bg">{{ query.get_quarter_display }}</small>
+                <small class="article-footer bg-q4 status-bg">{{ query.get_quarter_display }}</small>
               {% endif %}
             </div>
           </div>
 
           <div>
-            <small class="text-muted d-flex flex-row justify-content-end">{{ query.pathogen }}</small>
+            <!-- <small class="text-muted d-flex flex-row justify-content-end">{{ query.pathogen }}</small> -->
 
             <div class="d-flex flex-row justify-content-end mt-2 mb-2">
               <a class="btn btn-orange btn-sm"
@@ -65,16 +69,90 @@
 
 
       </div>
+
+      
+      <div class="d-flex flex-row mb-2 justify-content-around mt-3">
+        <div class="d-flex flex-row">
+            <small class=" d-flex align-items-end" style="margin-left: 1px;">
+                Date in to BMH: 
+                <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_BMH_received|date:'F d, Y' }}</span> </small>
+            <span class="vr"></span>
+            <small class=" d-flex align-items-end" style="margin-left: 10px;">
+                Date in to Evaluator: 
+                <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_assigned_to_evaluator|date:'F d, Y' }}</span> </small>
+            <span class="vr"></span>
+                <small class=" d-flex align-items-center" style="margin-left: 10px; min-width: 245px;">
+                    Date in to Section Head: 
+                <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_to_sections_head_for_approval|date:'F d, Y' }}</span> </small>
+            
+        </div>
+      </div>
+      
+      <hr style="margin: 1rem 4rem; opacity: 0.10;">
+
+
+      <div class="d-flex flex-row mb-2 justify-content-around">     
+          <small class=" d-flex align-items-end" style="margin-left: 10px;">
+              Date Due: 
+              <span class="text-muted d-flex align-items-end" style="margin-left: 10px;">{{ query.date_due|date:'F d, Y' }}</span> </small>
+          <span class="vr"></span>
+          <small class=" d-flex align-items-end" style="margin-left: 10px;">
+              Date out of BMH:  
+              <span class="text-muted d-flex align-items-end" style="margin-left: 10px;">{{ query.date_to_customer|date:'F d, Y' }}</span> </small>   
+      </div>
+
+      <hr style="margin: 1rem 4rem; opacity: 0.10;">
+
+      <div class="d-flex flex-row mb-2 justify-content-around mt-3">
+        <div class="card" style="min-width: 170px; max-width: 200px; border: none; background-color: #f7f7f8;"">
+          <div class="card-body">
+            <h6 class="card-title text-center">Pathogen</h6>
+            <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+            <p class="card-text text-muted text-center">{{ query.get_pathogen_display }}</p>
+          
+          </div>
+        </div>
+        
+        <div class="card" style="min-width: 170px; max-width: 200px; border: none; background-color: #f7f7f8;">
+          <div class="card-body">
+            <h6 class="card-title text-center">Food</h6>
+            <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+            <p class="card-text text-muted text-center">{{ query.get_food_display }}</p>
+          
+          </div>
+        </div>
+        <div class="card" style="min-width: 170px; max-width: 200px; border: none; background-color: #f7f7f8;"">
+          <div class="card-body">
+            <h6 class="card-title text-center">Category</h6>
+            <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+            <p class="card-text text-muted text-center">{{ query.get_category_display }}</p>
+          
+          </div>
+        </div>
+      </div>
+
+      <hr style="opacity: 0.15;">
+
       <h2 class="article-title mt-2">{{ query.subject_line }}</h2>
       <p class="article-content" style="overflow: auto;">{{ query.query_text }}</p>
 {#      <h4 class="article-content" style="overflow: auto;">Links:</h4>#}
-      <hr>
+      <hr style="margin: 1rem 4rem; opacity: 0.10;">
       <h5>Response:</h5>
       <p class="article-content" style="overflow: auto;">{{ query.query_response }}</p>
 
       <small class="article-footer bg-yellow key-bg">{{ query.key_words }}</small>
 
-    </div>
+      <hr style="margin: 1rem 4rem; opacity: 0.10;">
+
+      <h5>Affiliations:</h5>
+      <p class="article-content" style="overflow: auto;">{{ query.affiliations }}</p>
+
+      <h5>Redirected to:</h5>
+      <p class="article-content" style="overflow: auto;">{{ query.query_redirected_to }}</p>
+
+      <h5>Additional information:</h5>
+      <p class="article-content" style="overflow: auto;">{{ query.additional_information }}</p>
+
 {#    {% if query.evaluator == user %}#}
 {#      <div style="margin-top: 20px;">#}
 {#        <a class="btn btn-green btn-sm"#}
