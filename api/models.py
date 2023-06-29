@@ -115,3 +115,6 @@ class Query(models.Model):
     # How to find the url of any entry
     def get_absolute_url(self):
         return reverse('query_detail', kwargs={'pk': self.pk})
+
+    def keywords_as_list(self):
+        return self.key_words.split(',')

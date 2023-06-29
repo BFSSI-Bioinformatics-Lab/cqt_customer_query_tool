@@ -32,7 +32,7 @@ ul {
 }
 
 .bg-yellow {
-  background-color: #f6dbbb;
+  background-color: #d1cdb5;
 }
 
 .bg-final {
@@ -40,6 +40,10 @@ ul {
 }
 
 .bg-progress {
+  background-color: #aad4f0;
+}
+
+.bg-waiting {
   background-color: #f0c6aa;
 }
 
@@ -152,9 +156,10 @@ footer {
 }
 
 .key-bg {
-  padding: 5px;
+  padding: 8px;
   margin-top: 3px;
   border-radius: 20px;
+  margin-left: 2px;
 }
 
 /* Button left margin*/

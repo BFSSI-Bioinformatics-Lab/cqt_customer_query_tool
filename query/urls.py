@@ -10,5 +10,5 @@ urlpatterns = [
     path('query/<int:pk>/update/', views.QueryUpdateView.as_view(), name='query_update'),
     path('query/<int:pk>/delete/', views.QueryDeleteView.as_view(), name='query_delete'),
     path('query/archives/', views.QueryHistoryView.as_view(), name='query_archives'),
-#     path('query/archives/<int:pk>/', views.HistoryDetailView.as_view(), name='history_detail'),
+    path('query/archives/<int:pk>/', views.HistoryDetailView.as_view(), name='history_detail'),
 ]

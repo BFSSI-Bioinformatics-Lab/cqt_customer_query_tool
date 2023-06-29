@@ -25,7 +25,7 @@
                   Posted:</small>
                 <small class="text-muted  align-items-end" style="margin-right: 5px">
                 {{ query.date_input|date:'F d, Y' }}</small>
-  {#              separator between dates#}
+               <!-- separator between dates -->
                 <small>|</small>
                 <small class="align-items-end font-weight-bold font-italic"
                        style="margin-left: 5px"> Updated:</small>
@@ -37,10 +37,13 @@
             
             <div class="mt-2">
               {% if query.get_status_display == 'Completed' %}
-                <small class="article-footer bg-final status-bg">{{ query.get_status_display }}</small>
+                  <small class="article-footer bg-final status-bg">{{ query.get_status_display }}</small>
+              {% elif query.get_status_display == 'Waiting for Approval' %}
+                  <small class="article-footer bg-waiting status-bg">{{ query.get_status_display }}</small>
               {% else %}
-                <small class="article-footer bg-progress status-bg">{{ query.get_status_display }}</small>
+                  <small class="article-footer bg-progress status-bg">{{ query.get_status_display }}</small>
               {% endif %}
+
               {% if query.get_quarter_display == 'Q1' %}
                 <small class="article-footer bg-q1 status-bg"
                 >{{ query.get_quarter_display }}</small>
@@ -73,13 +76,16 @@
       
       <div class="d-flex flex-row mb-2 justify-content-around mt-3">
         <div class="d-flex flex-row">
-            <small class=" d-flex align-items-end" style="margin-left: 1px;">
+            <small class=" d-flex align-items-end" style="margin-left: 1px; margin-right: 10px;">
                 Date in to BMH: 
-                <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_BMH_received|date:'F d, Y' }}</span> </small>
+                <span class="text-muted d-flex align-items-end" 
+                style="margin-left: 2px;">{{ query.date_BMH_received|date:'F d, Y' }}</span> 
+            </small>
             <span class="vr"></span>
-            <small class=" d-flex align-items-end" style="margin-left: 10px;">
+            <small class=" d-flex align-items-end" style="margin-left: 10px; margin-right: 10px;">
                 Date in to Evaluator: 
-                <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_assigned_to_evaluator|date:'F d, Y' }}</span> </small>
+                <span class="text-muted d-flex align-items-end" 
+                style="margin-left: 2px;">{{ query.date_assigned_to_evaluator|date:'F d, Y' }}</span> </small>
             <span class="vr"></span>
                 <small class=" d-flex align-items-center" style="margin-left: 10px; min-width: 245px;">
                     Date in to Section Head: 
@@ -140,7 +146,9 @@
       <h5>Response:</h5>
       <p class="article-content" style="overflow: auto;">{{ query.query_response }}</p>
 
-      <small class="article-footer bg-yellow key-bg">{{ query.key_words }}</small>
+      {% for word in query.keywords_as_list %}
+        <small class="article-footer bg-yellow key-bg">{{ word }}</small>
+      {% endfor %}
 
       <hr style="margin: 1rem 4rem; opacity: 0.10;">
 

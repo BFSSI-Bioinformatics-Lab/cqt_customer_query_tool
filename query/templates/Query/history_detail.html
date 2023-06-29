@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <article class="media content-section">
+    <div class="media-body">
+      <div class="article-metadata ">
+        <div class="d-flex flex-row justify-content-between mb-2">
+          <div class="">
+            <p class="mr-3 d-flex flex-row align-items-center">QSM
+              <span style="color: #007880; margin-left: 5px;">{{ history.id }}</span></p>
+
+            <div>
+              <small class="align-items-end font-weight-bold font-italic">
+                {{ history.get_history_type_display }}:</small>
+              <small class="text-muted  align-items-end" style="margin-right: 5px">
+              {{ history.history_date|date:'F d, Y' }}</small>
+              <small class="align-items-end font-weight-bold font-italic">
+                by </small>
+              <small class="text-muted  align-items-end" style="margin-right: 5px">
+              {{ history.history_user }}</small>
+            </div>
+
+          </div>
+          <div>
+
+            <div class="d-flex flex-row justify-content-end mt-2 mb-2">
+                {% if history.get_status_display == 'Completed' %}
+                    <small class="article-footer bg-final status-bg">{{ history.get_status_display }}</small>
+                {% elif history.get_status_display == 'Waiting for Approval' %}
+                    <small class="article-footer bg-waiting status-bg">{{ history.get_status_display }}</small>
+                {% else %}
+                    <small class="article-footer bg-progress status-bg">{{ history.get_status_display }}</small>
+                {% endif %}
+
+                {% if history.get_quarter_display == 'Q1' %}
+                    <small class="article-footer bg-q1 status-bg"
+                    >{{ history.get_quarter_display }}</small>
+                {% elif history.get_quarter_display == 'Q2' %}
+                    <small class="article-footer bg-q2 status-bg">{{ history.get_quarter_display }}</small>
+                {% elif history.get_quarter_display == 'Q3' %}
+                    <small class="article-footer bg-q3 status-bg">{{ history.get_quarter_display }}</small>
+                {% else %}
+                    <small class="article-footer bg-q4 status-bg">{{ history.get_quarter_display }}</small>
+                {% endif %}
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="d-flex flex-row mb-2 justify-content-around mt-3">
+        <div class="d-flex flex-row">
+            <small class=" d-flex align-items-end" style="margin-left: 1px; margin-right: 10px;">
+                Date in to BMH: 
+                <span class="text-muted d-flex align-items-end" 
+                style="margin-left: 2px;">{{ history.date_BMH_received|date:'F d, Y' }}</span> 
+            </small>
+            <span class="vr"></span>
+            <small class=" d-flex align-items-end" style="margin-left: 10px; margin-right: 10px;">
+                Date in to Evaluator: 
+                <span class="text-muted d-flex align-items-end" 
+                style="margin-left: 2px;">{{ history.date_assigned_to_evaluator|date:'F d, Y' }}</span> </small>
+            <span class="vr"></span>
+                <small class=" d-flex align-items-center" style="margin-left: 10px; min-width: 245px;">
+                    Date in to Section Head: 
+                <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ history.date_to_sections_head_for_approval|date:'F d, Y' }}</span> </small>
+            
+        </div>
+      </div>
+      
+      <hr style="margin: 1rem 4rem; opacity: 0.10;">
+
+
+      <div class="d-flex flex-row mb-2 justify-content-around">     
+          <small class=" d-flex align-items-end" style="margin-left: 10px;">
+              Date Due: 
+              <span class="text-muted d-flex align-items-end" style="margin-left: 10px;">{{ history.date_due|date:'F d, Y' }}</span> </small>
+          <span class="vr"></span>
+          <small class=" d-flex align-items-end" style="margin-left: 10px;">
+              Date out of BMH:  
+              <span class="text-muted d-flex align-items-end" style="margin-left: 10px;">{{ history.date_to_customer|date:'F d, Y' }}</span> </small>   
+      </div>
+
+      <hr style="margin: 1rem 4rem; opacity: 0.10;">
+
+      <div class="d-flex flex-row mb-2 justify-content-around mt-3">
+        <div class="card" style="min-width: 170px; max-width: 200px; border: none; background-color: #f7f7f8;"">
+          <div class="card-body">
+            <h6 class="card-title text-center">Pathogen</h6>
+            <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+            <p class="card-text text-muted text-center">{{ history.get_pathogen_display }}</p>
+          
+          </div>
+        </div>
+        
+        <div class="card" style="min-width: 170px; max-width: 200px; border: none; background-color: #f7f7f8;">
+          <div class="card-body">
+            <h6 class="card-title text-center">Food</h6>
+            <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+            <p class="card-text text-muted text-center">{{ history.get_food_display }}</p>
+          
+          </div>
+        </div>
+        <div class="card" style="min-width: 170px; max-width: 200px; border: none; background-color: #f7f7f8;"">
+          <div class="card-body">
+            <h6 class="card-title text-center">Category</h6>
+            <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+            <p class="card-text text-muted text-center">{{ history.get_category_display }}</p>
+          
+          </div>
+        </div>
+      </div>
+
+      <h2 class="article-title mt-2">{{ query.subject_line }}</h2>
+      <p class="article-content" style="overflow: auto;">{{ history.query_text }}</p>
+
+      <hr style="margin: 1rem 4rem; opacity: 0.10;">
+
+      <h5>Response:</h5>
+      <p class="article-content" style="overflow: auto;">{{ history.query_response }}</p>
+
+      
+        <small class="article-footer bg-yellow key-bg">{{ history.key_words }}</small>
+      
+
+      <hr style="margin: 1rem 4rem; opacity: 0.10;">
+
+      <h5>Affiliations:</h5>
+      <p class="article-content" style="overflow: auto;">{{ history.affiliations }}</p>
+
+      <h5>Redirected to:</h5>
+      <p class="article-content" style="overflow: auto;">{{ history.query_redirected_to }}</p>
+
+      <h5>Additional information:</h5>
+      <p class="article-content" style="overflow: auto;">{{ history.additional_information }}</p>
+
+    </div>
+
+
+  </article>
+
+{% endblock content %}
