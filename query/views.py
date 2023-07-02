@@ -21,6 +21,33 @@ class QueryView(LoginRequiredMixin, ListView):
     # paginate_by = 2
 #     order entries from newest to oldest
     ordering = ['-updated']
+    
+    def get_queryset(self):
+        qs = Query.objects.all()
+        entry_number_query = self.request.GET.get('entry_id')
+        entry_status_query = self.request.GET.get('entry_status')
+        entry_keywords_query = self.request.GET.get('entry_keywords')
+        entry_quarter_query = self.request.GET.get('entry_quarter')
+        entry_text_query = self.request.GET.get('entry_content')
+
+        # Use elif to make search "OR" and use if to make it "AND"
+        if entry_number_query != '' and entry_number_query is not None:
+            qs = qs.filter(id__icontains=entry_number_query)
+        if entry_status_query != '' and entry_status_query is not None:
+            qs = qs.filter(Q(status__icontains=entry_status_query) | Q(
+                status__icontains=entry_status_query))
+        if entry_keywords_query != '' and entry_keywords_query is not None:
+            qs = qs.filter(key_words__icontains=entry_keywords_query)
+        if entry_quarter_query != '' and entry_quarter_query is not None:
+            qs = qs.filter(quarter__icontains=entry_quarter_query).distinct()
+        if entry_text_query != '' and entry_text_query is not None:
+            qs = qs.filter(Q(query_text__icontains=entry_text_query))
+            # | Q( author__name__icontains=entry_type_author_query))
+
+        else:
+            qs = qs
+
+        return qs.order_by('-updated')
 
 class UserListView(LoginRequiredMixin, ListView):
     model = Query
