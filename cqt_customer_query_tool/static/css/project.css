@@ -57,14 +57,17 @@ ul {
 
 .bg-q1 {
   background-color:  #ECE5C7;
+  color: #333333;
 }
 
 .bg-q2 {
   background-color: #CDC2AE;
+  color: #333333;
 }
 
 .bg-q3 {
   background-color: #C2DEDC;
+  color: #333333;
   font-weight: 500;
 }
 
@@ -286,3 +289,21 @@ footer {
 /*.account-heading {*/
 /*  font-size: 2.5rem;*/
 /*}*/
+
+/* Datatables css */
+.page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: #3B525F;
+  border-color: #3B525F;
+}
+
+table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, table.dataTable tfoot td,table.dataTable td, table.dataTable th {
+  text-align: center;
+}
+
+/* table.dataTable td, table.dataTable th {
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+  text-align: center;
+} */

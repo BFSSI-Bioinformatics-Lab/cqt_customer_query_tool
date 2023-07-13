@@ -1,0 +1,185 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+<div class="table-responsive">
+  <table id="query-table" class="table row-border ">
+    <thead class="thead-light">
+      <tr>
+        <th>Evaluator</th>
+        <th>Quarter</th>
+        <th>Status</th>
+        <th>Section head</th>
+        <th>Date received in BMH</th>
+        <th>Date assigned to Evaluator</th>
+        <th>Date to Section Head for approval</th>
+        <th>Date to Customer</th>
+        <th>Name of Requestor</th>
+        <th>Query Subject Line</th>
+        <th>Query Text</th>
+        <th>Query Response</th>
+        <th>Keywords</th>
+        <th>Pathogen</th>
+        <th>Food</th>
+        <th>Category</th>
+        <th>RDIMS</th>
+        <th>Affiliations</th>
+        <th>Redirected to</th>
+        <th>Additional Information</th>
+        <th>Date Input</th>
+        <th>Last Updated</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>evaluator</th>
+        <th>Quarter</th>
+        <th>Status</th>
+        <th>Section Head</th>
+        <th>Date received</th>
+        <th>Date assigned to Evaluator</th>
+        <th>Date to Section Head for approval</th>
+        <th>Date to Customer</th>
+        <th>Name of Requestor</th>
+        <th>Query Subject Line</th>
+        <th>Query Text</th>
+        <th>Query Response</th>
+        <th>Keywords</th>
+        <th>Pathogen</th>
+        <th>Food</th>
+        <th>Category</th>
+        <th>RDIMS</th>
+        <th>Affiliations</th>
+        <th>Redirected to</th>
+        <th>Additional Information</th>
+        <th>Date Input</th>
+        <th>Last Updated</th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+{% endblock %} 
+{% block extra_javascript %}
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#query-table tfoot th').each(function () {
+      var title = $(this).text();
+      $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+    });
+
+    $('#query-table').DataTable({
+      ajax: {
+        url: '/api/query/',
+        dataSrc: '',
+      },
+    //   autoWidth: false,
+      order: [[0, 'desc']],
+      columns: [
+        {
+          data: 'evaluator', 
+        //   visible: false,
+        //   render: function (data, type, row, meta) {
+        //     if (type === 'display') {
+        //       var link = '/sample_database/' + data;
+        //       return '<a href="' + link + '">' + data + '</a>';
+        //     }
+        //     return data;
+        //   },
+        },
+        {
+          data: 'quarter',
+          render: function (data, type, row, meta) {
+            if (type === 'display') {
+              var cssClass = '';
+              if (data === 'Q1') {
+                cssClass = 'bg-q1 status-bg';
+              } else if (data === 'Q2') {
+                cssClass = 'bg-q2 status-bg';
+              } else if (data === 'Q3') {
+                cssClass = 'bg-q3 status-bg';
+              } else if (data === 'Q4') {
+                cssClass = 'bg-q4 status-bg';
+              } else {
+                cssClass = 'bg-light text-secondary';
+              }
+              return '<span class="badge ' + cssClass + '">' + data + '</span>';
+            }
+            return data;
+          },
+          defaultContent: '',
+        },
+        {
+          data: 'status',
+          render: function (data, type, row, meta) {
+            if (type === 'display') {
+              var cssClass = '';
+              if (data === 'IN_PROGRESS') {
+                cssClass = 'bg-progress status-bg text-secondary';
+              } else if (data === 'WAITING_FOR_APPROVAL') {
+                cssClass = 'bg-waiting status-bg text-secondary';
+              } else  if (data === 'COMPLETED') {
+                cssClass = 'bg-final status-bg text-secondary';
+              } else {
+                cssClass = 'bg-light text-secondary';
+              }
+              return '<span class="badge ' + cssClass + '">' + data + '</span>';
+            }
+            return data;
+          },
+          defaultContent: '',
+        },
+        { data: 'section_head' },
+        { data: 'date_BMH_received'},
+        { data: 'date_assigned_to_evaluator'},
+        { data: 'date_to_sections_head_for_approval' },
+        { data: 'date_to_customer' },
+        { data: 'name_of_requestor' },
+        { data: 'subject_line' },
+        { data: 'query_text',visible: false, },
+        { data: 'query_response', visible: false, },
+        { data: 'key_words' },
+        { data: 'pathogen' },
+        { data: 'food' },
+        { data: 'category' },
+        { data: 'number_RDIMS', visible: false, },
+        { data: 'affiliations', visible: false, },
+        { data: 'query_redirected_to' },
+        { data: 'additional_information', visible: false, },
+        { data: 'date_input' },
+        { data: 'updated' },
+        
+        // {
+        //   data: 'latest_workflow_execution.workflow.workflow_name',
+        //   defaultContent: '',
+        // },
+        // {
+        //   data: 'latest_workflow_execution.modified',
+        //   defaultContent: '',
+        // },
+        
+
+      ],
+      language: {
+        search: 'Search all fields:',
+      },
+      dom: 'Bfrtip', // Specify the Buttons extension
+      buttons: [
+        'copy', 'csv', 'excel', 'pdf', 'print' // Add the export buttons you want to include
+      ],
+      initComplete: function () {
+        // Apply the search
+        this.api()
+          .columns()
+          .every(function () {
+            var that = this;
+
+            $('input', this.footer()).on('keyup change clear', function () {
+              if (that.search() !== this.value) {
+                that.search(this.value).draw();
+              }
+            });
+          });
+      },
+    });
+  });
+</script>
+{% endblock extra_javascript %}

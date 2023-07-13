@@ -3,7 +3,8 @@ from django.views.generic import (
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView
+    DeleteView,
+    TemplateView
 )
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from api.models import Query
@@ -125,3 +126,6 @@ class HistoryDetailView(LoginRequiredMixin, DetailView):
     model = Query.history.model
     template_name = 'Query/history_detail.html'
     context_object_name = 'history'
+    
+class QueryDownloadView(LoginRequiredMixin, TemplateView):
+    template_name = 'Query/query_download.html'
