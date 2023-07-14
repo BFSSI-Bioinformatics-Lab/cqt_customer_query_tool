@@ -12,4 +12,5 @@ urlpatterns = [
     path('query/archives/', views.QueryHistoryView.as_view(), name='query_archives'),
     path('query/archives/<int:pk>/', views.HistoryDetailView.as_view(), name='history_detail'),
     path('query/download/', views.QueryDownloadView.as_view(), name='query_download'),
+    path('query/approval/', views.QueryToApproveView.as_view(), name='query_approval'),
 ]

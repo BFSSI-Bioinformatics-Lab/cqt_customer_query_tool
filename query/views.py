@@ -129,3 +129,11 @@ class HistoryDetailView(LoginRequiredMixin, DetailView):
     
 class QueryDownloadView(LoginRequiredMixin, TemplateView):
     template_name = 'Query/query_download.html'
+    
+class QueryToApproveView(LoginRequiredMixin, ListView):
+    model = Query
+    template_name = 'Query/query_to_approve.html'
+    context_object_name = 'queries'
+    # paginate_by = 2
+#     order entries from newest to oldest
+    ordering = ['-updated']
