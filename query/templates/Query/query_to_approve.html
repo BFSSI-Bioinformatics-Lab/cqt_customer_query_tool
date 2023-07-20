@@ -77,9 +77,15 @@
                                 <h4><a class="mr-2 mb-0" style="color: #007880; font-size: 22px"
                                 href="{% url 'user_list' query.evaluator.username %}">{{ query.evaluator }}</a></h4>
                                 <small class="text-muted d-flex align-items-center" style="margin-left: 10px;">
-                                    RDIMS #{{ query.number_RDIMS }}</small>
+                                    Query #{{ query.id }}</small>
                                 <small class=" d-flex align-items-center" style="margin-left: 10px;">
                                     Last updated: <span class="text-muted d-flex align-items-end" style="margin-left: 4px;">{{ query.updated|date:'F d, Y' }}</span> </small>
+                            </div>
+
+                            <div class="d-flex flex-row">
+                                <small class=" d-flex align-items-center" style="margin-left: 10px;">
+                                  Section Head: <span class="text-muted d-flex align-items-end" style="margin-left: 4px;">{{ query.section_head }}</span> 
+                                </small>
                             </div>
                         
                             <div>

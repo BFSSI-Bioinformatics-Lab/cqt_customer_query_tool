@@ -69,11 +69,18 @@ CATEGORY = (
     ('Not Applicable / Other', 'Not Applicable / Other')
 )
 
+HEAD = (
+    ('Angela Catford', 'Angela Catford'),
+    ('Marie Breton', 'Marie Breton'),
+    ('Not Applicable / Other', 'Not Applicable / Other')
+)
+
 class Query(models.Model):
     name = 'query'
 
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='IN_PROGRESS')
     number_RDIMS = models.IntegerField(blank=True, null=True)
+    rau = models.IntegerField(blank=True, null=True)
     quarter = models.CharField(max_length=50, choices=QUARTER, default='Not Applicable / Other')
     
     date_input = models.DateTimeField(default=timezone.now)
@@ -84,7 +91,7 @@ class Query(models.Model):
     date_to_customer = models.DateField(blank=True, null=True)
     
     evaluator = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    section_head = models.CharField(max_length=500, blank=True, null=True)
+    section_head = models.CharField(max_length=500, choices=HEAD, default='Not Applicable / Other')
     # This is the same as evaluator
     # bmh_scientific_evaluator_lead = models.CharField(max_length=500, blank=True, null=True)
     name_of_requestor = models.CharField(max_length=500, blank=True, null=True)
