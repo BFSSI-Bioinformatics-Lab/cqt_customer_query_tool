@@ -139,11 +139,11 @@
 {#                <a class ="list-group-item list-group-item-light list-group-item-action"#}
 {#                   href="{% url 'user_list' request.user.username %}">My Entries</a>#}
                 <a class ="list-group-item list-group-item-light list-group-item-action"
-                href="#">Queries to be Approved</a>
+                href="{% url 'query_approval' %}">Queries to be Approved</a>
                 <a class ="list-group-item list-group-item-light list-group-item-action"
                    href="{% url 'query_archives' %}">Archives</a>
                 <a class="list-group-item list-group-item-light list-group-item-action"
-                   href="#">Download Data</a>
+                   href="{% url 'query_download' %}">Download Data</a>
               </div>
             </div>
 
