@@ -55,6 +55,10 @@
      
     <!-- Second line containing the search fields -->
     <div class="form-row d-flex flex-row justify-content-start mb-4" id="search-add">
+      
+      <div><button id="btn-add" type="button" class="bg-final btn btn-sm status-bg" style="margin-right: 12px;" 
+      onclick="addSearchField()">+</button></div>
+      
       <div class="form-group">
         <div class="input-group" style="width: 230px">
             <input class="form-control py-2 border-right-0 border" type="search"
@@ -62,8 +66,7 @@
         </div>
       </div>
 
-      <button id="btn-add" type="button" class="bg-final btn btn-sm status-bg" style="margin-left: 12px;" 
-      onclick="addSearchField()">+</button>
+      
     </div>
   </form>
 {% endblock %}
@@ -242,20 +245,23 @@
       let newInput = document.createElement('input');
       newInput.type = 'search';
       newInput.name = 'entry_keywords';
+      newInput.className = 'form-control py-2 border-right-0 border';
       newInput.placeholder = 'Keyword...';
       form.appendChild(newInput);
 
       // Create a delete button for the new search field
       let deleteButton = document.createElement('button');
-      deleteButton.textContent = 'Delete';
+      deleteButton.textContent = '-';
       deleteButton.type = 'button';
-      deleteButton.className = 'bg-final btn btn-sm status-bg'; 
+      deleteButton.className = 'btn-red btn btn-sm status-bg'; 
       deleteButton.onclick = function() {
           deleteSearchField(newInput);
       };
 
       // Apply margin-left: 10px to the delete button
       deleteButton.style.marginLeft = '10px';
+      newInput.style.marginLeft = '10px';
+    
 
       // Create a container div to hold the search field and delete button
       let fieldContainer = document.createElement('div');
