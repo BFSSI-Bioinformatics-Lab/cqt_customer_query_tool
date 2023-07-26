@@ -24,10 +24,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=Philosopher:wght@700&display=swap" rel="stylesheet">
     <link href="https://cdn.datatables.net/v/bs5/dt-1.13.5/b-2.4.0/r-2.5.0/datatables.min.css" rel="stylesheet"/>
+
+    <!-- Script to fix left column in table -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/4.0.0/css/fixedColumns.bootstrap5.css"/>
+    
     <!-- Your stuff: Third-party CSS libraries go here -->
     <!-- This file stores project-specific CSS -->
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
     {% endblock %}
+   
     <!-- Le javascript
     ================================================== -->
     {# Placed at the top of the document so pages load faster with defer #}
@@ -49,6 +54,11 @@
       <!-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> -->
       <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.4/b-2.3.6/b-html5-2.3.6/b-print-2.3.6/datatables.min.js"></script>
 
+      <!-- Script to fix left column in table -->
+      <script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
+      
+      <!-- <script type="text/javascript" src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script> -->
+      <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.js"></script> -->
 
 
     {% endblock javascript %}
