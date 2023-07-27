@@ -1,9 +1,10 @@
 from django.urls import include, path
 from rest_framework import routers
-from .views import QueryViewSet
+from .views import QueryViewSet, UserActivityViewSet
 
 router = routers.DefaultRouter()
 router.register(r'query', QueryViewSet)
+router.register(r'userActivity', UserActivityViewSet)
 
 
 # Wire up our API using automatic URL routing.

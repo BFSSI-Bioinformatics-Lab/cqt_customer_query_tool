@@ -125,3 +125,15 @@ class Query(models.Model):
 
     def keywords_as_list(self):
         return self.key_words.split(',')
+
+class UserActivity(models.Model):
+    name = 'userActivity'
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    session_key = models.CharField(max_length=40, db_index=True)
+    login = models.DateTimeField(auto_now_add=True)
+    logout = models.DateTimeField(null=True, default=None)
+    
+    class Meta:
+        app_label = "api"
+        verbose_name = 'UserActivity'
+        verbose_name_plural = 'UserActivity'
