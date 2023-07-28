@@ -3,32 +3,112 @@
 {% block content %}
   <h3 class="mb-3">Entries by: {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h3>
   {% for query in queries %}
-      <article class="media content-section">
-        <div class="media-body">
-          <div class="article-metadata d-flex flex-row justify-content-between">
-            <div class="d-flex flex-row mb-2">
-              <a class="mr-2 mb-0" style="color: #007880; font-size: 22px"
-                 href="{% url 'user_list' query.evaluator.username %}">{{ query.evaluator }}</a>
-              <small class="text-muted d-flex align-items-end" style="margin-left: 10px;">
-                {{ query.updated|date:'F d, Y' }}</small>
-            </div>
-            <div>
-              <small class="text-muted">{{ query.food }}</small>
-            </div>
-          </div>
-          <h2><a class="article-title mt-2" href="{% url 'query_detail' pk=query.id %}"
-          >{{ query.subject_line }}</a></h2>
-{#            Add style = white-space:nowrap to add 3 points at the end#}
-          <p class="article-content  text-truncate"
-             style="max-height: 70px; ">{{ query.query_text }}</p>
-          <small class="article-footer bg-yellow key-bg">{{ query.key_words }}</small>
+    <article class="media content-section">
+      <div class="media-body">
+          <div class="article-metadata d-flex flex-column justify-content-between">
+              <div class="d-flex flex-row mb-2 justify-content-between">
+                  
+                  <div class="d-flex flex-row">
+                      <!-- <h4 class="mr-2 mb-0" style="color: #007880; font-size: 22px"
+                      href="#">{{ query.evaluator }}</h4> -->
+                      <h4><a class="mr-2 mb-0" style="color: #007880; font-size: 22px"
+                      href="{% url 'user_list' query.evaluator.username %}">{{ query.evaluator }}</a></h4>
+                      <small class="text-muted d-flex align-items-center" style="margin-left: 10px;">
+                          Query # {{ query.id }}</small>
+                      <small class=" d-flex align-items-center" style="margin-left: 10px;">
+                          Last updated: <span class="text-muted d-flex align-items-end" style="margin-left: 4px;">{{ query.updated|date:'F d, Y' }}</span> </small>
+                      
+                  </div>
 
-        </div>
-      </article>
+                  <div class="d-flex flex-row">
+                    <small class=" d-flex align-items-center" style="margin-left: 10px;">
+                      Section Head: <span class="text-muted d-flex align-items-end" style="margin-left: 4px;">{{ query.section_head }}</span> 
+                    </small>
+                  </div>
+
+                  <div>
+                      {% if query.get_status_display == 'Completed' %}
+                          <small class="article-footer bg-final status-bg">{{ query.get_status_display }}</small>
+                      {% elif query.get_status_display == 'Waiting for Approval' %}
+                          <small class="article-footer bg-waiting status-bg">{{ query.get_status_display }}</small>
+                      {% else %}
+                          <small class="article-footer bg-progress status-bg">{{ query.get_status_display }}</small>
+                      {% endif %}
+                      
+                      {% if query.get_quarter_display == 'Q1' %}
+                        <small class="article-footer bg-q1 status-bg"
+                        >{{ query.get_quarter_display }}</small>
+                      {% elif query.get_quarter_display == 'Q2' %}
+                        <small class="article-footer bg-q2 status-bg">{{ query.get_quarter_display }}</small>
+                      {% elif query.get_quarter_display == 'Q3' %}
+                        <small class="article-footer bg-q3 status-bg">{{ query.get_quarter_display }}</small>
+                      {% else %}
+                        <small class="article-footer bg-q4 status-bg">{{ query.get_quarter_display }}</small>
+                      {% endif %}
+                  </div>
+              </div>
+              
+              <div class="d-flex flex-row mb-2 justify-content-around">
+                  <div class="d-flex flex-row">
+                      <small class=" d-flex align-items-end" style="margin-left: 1px; margin-right: 10px;">
+                          Date in to BMH: 
+                          <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_BMH_received|date:'F d, Y' }}</span> </small>
+                      <span class="vr"></span>
+                      <small class=" d-flex align-items-end" style="margin-left: 10px; margin-right: 10px;">
+                          Date in to Evaluator: 
+                          <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_assigned_to_evaluator|date:'F d, Y' }}</span> </small>
+                      <span class="vr"></span>
+                          <small class=" d-flex align-items-center" style="margin-left: 10px; min-width: 245px;">
+                              Date in to Section Head: 
+                          <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_to_sections_head_for_approval|date:'F d, Y' }}</span> </small>
+                      
+                  </div>
+              </div>
+
+              <!-- <div class="d-flex flex-row mb-2 justify-content-around">     
+                      <small class=" d-flex align-items-end" style="margin-left: 10px;">
+                          Date Due: 
+                          <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_due|date:'F d, Y' }}</span> </small>
+                      <span class="vr"></span>
+                      <small class=" d-flex align-items-end" style="margin-left: 10px;">
+                          Date out of BMH:  
+                          <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_to_customer|date:'F d, Y' }}</span> </small>   
+              </div> -->
+
+          </div>
+
+          <h2 class="mt-2">
+              <a class="article-title mt-2" href="{% url 'query_detail' pk=query.id %}"
+          target="_blank">{{ query.subject_line }}</a></h2>
+              <!-- Add style = white-space:nowrap to add 3 points at the end -->
+          <p class="article-content  text-truncate"
+          style="max-height: 70px; ">{{ query.query_text }}
+          </p>
+
+          {% for word in query.keywords_as_list %}
+            <small class="article-footer bg-yellow key-bg">{{ word }}</small>
+          {% endfor %}
+
+          <!-- <small class="article-footer bg-yellow key-bg">{{ query.key_words }}</small> -->
+
+          <hr>
+          <div class="d-flex flex-row mb-2 justify-content-around">
+                    
+              <small class=" d-flex align-items-end" style="margin-left: 10px;">
+                  Date Due: 
+                  <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_due|date:'F d, Y' }}</span> </small>
+              <span class="vr"></span>
+              <small class=" d-flex align-items-end" style="margin-left: 10px;">
+                  Date out of BMH:  
+                  <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_to_customer|date:'F d, Y' }}</span> </small>
+              
+          </div>
+      </div>
+    </article>
   {% endfor %}
 
   <div class="d-flex justify-content-center">
-{#  Show pagination of entries#}
+    <!-- Pagination of queries -->
     {% if is_paginated %}
 
       {% if page_obj.has_previous %}
