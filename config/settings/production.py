@@ -1,16 +1,56 @@
 from .base import *  # noqa
 from .base import env
 
+
+# ADDED FOR PRODUCTION
+# ------------------------------------------------------------------------------
+CORS_ORIGIN_ALLOW_ALL = True  
+ 
+
+# INTERNALLY-DEFINED, NOT DJANGO-SPECIFIC
+
+DB_USERNAME = env('DB_USERNAME')
+DB_PASSWORD = env('DB_PASSWORD')
+DB_NAME = env('DB_NAME')
+DB_HOST = env('DB_HOST')
+DB_PORT = env('DB_PORT')
+SECRET_KEY = get_random_secret_key()
+PRODUCTION_SERVER = env('PRODUCTION_SERVER')
+PRODUCTION_DOMAIN = env('PRODUCTION_DOMAIN')
+DEBUG = env('DEBUG') == 'True'
+
+
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["example.com"])
+# ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["example.com"])
+
+# The first 3 items are provided by default for localhost, the 4th one is for the app being visible by users
+
+ALLOWED_HOSTS = ['.localhost', '127.0.0.1', '[::1]', PRODUCTION_SERVER]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://' + PRODUCTION_DOMAIN,
+    'http://127.0.0.1',
+    'https://' + PRODUCTION_SERVER,
+]
 
 # DATABASES
 # ------------------------------------------------------------------------------
-DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)  # noqa: F405
+# DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)  # noqa: F405
+
+DATABASES = {
+    'default': {  # A 'default' database alias has to be specified
+        'NAME': DB_NAME,
+        'ENGINE': 'django.db.backends.postgresql',
+        'USER': DB_USERNAME,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': DB_HOST,
+        'PORT': DB_PORT,
+    },
+}
 
 # CACHES
 # ------------------------------------------------------------------------------
