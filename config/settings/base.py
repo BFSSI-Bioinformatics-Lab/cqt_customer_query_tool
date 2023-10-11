@@ -17,10 +17,25 @@ if READ_DOT_ENV_FILE:
     # OS environment variables take precedence over variables from .env
     env.read_env(str(BASE_DIR / ".env"))
 
+# INTERNALLY-DEFINED, NOT DJANGO-SPECIFIC
+
+DB_USERNAME = env('DB_USERNAME')
+DB_PASSWORD = env('DB_PASSWORD')
+DB_NAME = env('DB_NAME')
+DB_HOST = env('DB_HOST')
+DB_PORT = env('DB_PORT')
+SECRET_KEY = get_random_secret_key()
+PRODUCTION_SERVER = env('PRODUCTION_SERVER')
+PRODUCTION_DOMAIN = env('PRODUCTION_DOMAIN')
+DEBUG = env('DEBUG') == 'True'
+
+DATABASE_URL = env('DATABASE_URL')
+
+
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
-DEBUG = env.bool("DJANGO_DEBUG", False)
+# DEBUG = env.bool("DJANGO_DEBUG", False)
 # Local time zone. Choices are
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # though not all of them may be available with every OS.
@@ -41,12 +56,24 @@ LOCALE_PATHS = [str(BASE_DIR / "locale")]
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
+# DATABASES = {
+#     "default": env.db(
+#         "DATABASE_URL",
+#         default="postgres:///cqt_customer_query_tool",
+         
+#     ),
+# }
+
 DATABASES = {
-    "default": env.db(
-        "DATABASE_URL",
-        # default="postgres:///cqt_customer_query_tool",
-         default="postgres://cqt_prod:<REDACTED>@pgsql-prod.hc.local:5432/cqt_customer_query_tool",
-    ),
+    'default': { # A 'default' database alias has to be specified
+        'NAME': DB_NAME,
+        'ENGINE': 'django.db.backends.postgresql',
+        'USER': DB_USERNAME,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': DB_HOST,
+        'PORT': DB_PORT,
+        'DATABASE_URL': DATABASE_URL,
+    },
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
