@@ -4,8 +4,8 @@ from .base import env
 
 # ADDED FOR PRODUCTION
 # ------------------------------------------------------------------------------
-CORS_ORIGIN_ALLOW_ALL = True  
- 
+CORS_ORIGIN_ALLOW_ALL = True
+
 
 # # INTERNALLY-DEFINED, NOT DJANGO-SPECIFIC
 
@@ -120,11 +120,19 @@ aws_s3_domain = AWS_S3_CUSTOM_DOMAIN or f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws
 # ------------------------
 STATICFILES_STORAGE = "cqt_customer_query_tool.utils.storages.StaticRootS3Boto3Storage"
 COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
-# STATIC_URL = f"https://{aws_s3_domain}/static/" # static variables taken from base.py
+# STATIC_URL = f"https://{aws_s3_domain}/static/" # static variables added under to match base.py
+
+# https://docs.djangoproject.com/en/dev/ref/settings/#static-root
+STATIC_ROOT = str(BASE_DIR / "staticfiles")
+# https://docs.djangoproject.com/en/dev/ref/settings/#static-url
+STATIC_URL = "/static/"
+# https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
+STATICFILES_DIRS = [str(APPS_DIR / "static")]
+
 # MEDIA
 # ------------------------------------------------------------------------------
 DEFAULT_FILE_STORAGE = "cqt_customer_query_tool.utils.storages.MediaRootS3Boto3Storage"
-MEDIA_URL = f"https://{aws_s3_domain}/media/"
+# MEDIA_URL = f"https://{aws_s3_domain}/media/"
 
 # EMAIL
 # ------------------------------------------------------------------------------
