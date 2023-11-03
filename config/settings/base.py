@@ -29,8 +29,8 @@ PRODUCTION_SERVER = env('PRODUCTION_SERVER')
 PRODUCTION_DOMAIN = env('PRODUCTION_DOMAIN')
 DEBUG = env('DEBUG') == 'True'
 
-DATABASE_URL = env('DATABASE_URL')
-
+# DATABASE_URL = env('DATABASE_URL')
+DJANGO_ADMIN_URL = env("DJANGO_ADMIN_URL")
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ LOCALE_PATHS = [str(BASE_DIR / "locale")]
 #     "default": env.db(
 #         "DATABASE_URL",
 #         default="postgres:///cqt_customer_query_tool",
-         
+
 #     ),
 # }
 
@@ -163,6 +163,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
