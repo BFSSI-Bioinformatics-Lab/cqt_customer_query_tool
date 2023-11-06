@@ -119,8 +119,8 @@ INSTALLED_APPS += ["storages"]  # noqa: F405
 
 # STATIC
 # ------------------------
-STATICFILES_STORAGE = "cqt_customer_query_tool.utils.storages.StaticRootS3Boto3Storage"
-COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
+# STATICFILES_STORAGE = "cqt_customer_query_tool.utils.storages.StaticRootS3Boto3Storage"
+# COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
 # STATIC_URL = f"https://{aws_s3_domain}/static/" # static variables added under to match base.py
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-root
