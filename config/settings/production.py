@@ -132,7 +132,7 @@ STATICFILES_DIRS = [str(APPS_DIR / "static")]
 
 # MEDIA
 # ------------------------------------------------------------------------------
-DEFAULT_FILE_STORAGE = "cqt_customer_query_tool.utils.storages.MediaRootS3Boto3Storage"
+# DEFAULT_FILE_STORAGE = "cqt_customer_query_tool.utils.storages.MediaRootS3Boto3Storage"
 # MEDIA_URL = f"https://{aws_s3_domain}/media/"
 
 # EMAIL
