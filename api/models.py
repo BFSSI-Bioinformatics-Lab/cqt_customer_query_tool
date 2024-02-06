@@ -49,6 +49,10 @@ FOOD = (
     ('Fruit', 'Fruit'),
     ('Vegetables', 'Vegetables'),
     ('Infant formula', 'Infant formula'),
+    ('Bottled Water', 'Bottled Water'),
+    ('Meat', 'Meat'),
+    ('Herbs/spices', 'Herbs/spices'),
+    ('Beverages', 'Beverages'),
     ('Not Applicable / Other', 'Not Applicable / Other')
 )
 
@@ -66,6 +70,12 @@ CATEGORY = (
     ('Food handling', 'Food handling'),
     ('Spoilage', 'Spoilage'),
     ('Canning', 'Canning'),
+    ('Methods', 'Methods'),
+    ('Labelling', 'Labelling'),
+    ('Education', 'Education'),
+    ('Extraneous material', 'Extraneous material'),
+    ('Shelf-life', 'Shelf-life'),
+    ('Policy', 'Policy'),
     ('Not Applicable / Other', 'Not Applicable / Other')
 )
 
@@ -82,14 +92,14 @@ class Query(models.Model):
     number_RDIMS = models.IntegerField(blank=True, null=True)
     rau = models.IntegerField(blank=True, null=True)
     quarter = models.CharField(max_length=50, choices=QUARTER, default='Not Applicable / Other')
-    
+
     date_input = models.DateTimeField(default=timezone.now)
     date_due = models.DateField(blank=True, null=True)
     date_BMH_received = models.DateField(blank=True, null=True)
     date_assigned_to_evaluator = models.DateField(blank=True, null=True)
     date_to_sections_head_for_approval = models.DateField(blank=True, null=True)
     date_to_customer = models.DateField(blank=True, null=True)
-    
+
     evaluator = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     section_head = models.CharField(max_length=500, choices=HEAD, default='Not Applicable / Other')
     # This is the same as evaluator
@@ -98,16 +108,16 @@ class Query(models.Model):
     subject_line = models.TextField(null=True, blank=True)
     query_text = models.TextField(null=True, blank=True)
     query_response = models.TextField(null=True, blank=True)
-    
+
     key_words = models.CharField(max_length=500, blank=True, null=True)
     pathogen = models.CharField(max_length=50, choices=PATHOGEN, default='Not Applicable / Other')
     food = models.CharField(max_length=50, choices=FOOD, default='Not Applicable / Other')
     category = models.CharField(max_length=50, choices=CATEGORY, default='Not Applicable / Other')
-    
+
     affiliations = models.CharField(max_length=500, blank=True, null=True)
     query_redirected_to = models.CharField(max_length=500, blank=True, null=True)
     additional_information = models.TextField(null=True, blank=True)
-    
+
     updated = models.DateTimeField(auto_now=True)
     history = HistoricalRecords()
 
@@ -132,7 +142,7 @@ class UserActivity(models.Model):
     session_key = models.CharField(max_length=40, db_index=True)
     login = models.DateTimeField(auto_now_add=True)
     logout = models.DateTimeField(null=True, default=None)
-    
+
     class Meta:
         app_label = "api"
         verbose_name = 'UserActivity'
