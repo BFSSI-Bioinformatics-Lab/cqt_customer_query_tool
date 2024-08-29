@@ -54,34 +54,34 @@
       <div class="d-flex flex-row mb-2 justify-content-around mt-3">
         <div class="d-flex flex-row">
             <small class=" d-flex align-items-end" style="margin-left: 1px; margin-right: 10px;">
-                Date in to BMH: 
-                <span class="text-muted d-flex align-items-end" 
-                style="margin-left: 2px;">{{ history.date_BMH_received|date:'F d, Y' }}</span> 
+                Date in to BMH:
+                <span class="text-muted d-flex align-items-end"
+                style="margin-left: 2px;">{{ history.date_BMH_received|date:'F d, Y' }}</span>
             </small>
             <span class="vr"></span>
             <small class=" d-flex align-items-end" style="margin-left: 10px; margin-right: 10px;">
-                Date in to Evaluator: 
-                <span class="text-muted d-flex align-items-end" 
+                Date in to Evaluator:
+                <span class="text-muted d-flex align-items-end"
                 style="margin-left: 2px;">{{ history.date_assigned_to_evaluator|date:'F d, Y' }}</span> </small>
             <span class="vr"></span>
                 <small class=" d-flex align-items-center" style="margin-left: 10px; min-width: 245px;">
-                    Date in to Section Head: 
+                    Date in to Section Head:
                 <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ history.date_to_sections_head_for_approval|date:'F d, Y' }}</span> </small>
-            
+
         </div>
       </div>
-      
+
       <hr style="margin: 1rem 4rem; opacity: 0.10;">
 
 
-      <div class="d-flex flex-row mb-2 justify-content-around">     
+      <div class="d-flex flex-row mb-2 justify-content-around">
           <small class=" d-flex align-items-end" style="margin-left: 10px;">
-              Date Due: 
+              Date Due:
               <span class="text-muted d-flex align-items-end" style="margin-left: 10px;">{{ history.date_due|date:'F d, Y' }}</span> </small>
           <span class="vr"></span>
           <small class=" d-flex align-items-end" style="margin-left: 10px;">
-              Date out of BMH:  
-              <span class="text-muted d-flex align-items-end" style="margin-left: 10px;">{{ history.date_to_customer|date:'F d, Y' }}</span> </small>   
+              Date out of BMH:
+              <span class="text-muted d-flex align-items-end" style="margin-left: 10px;">{{ history.date_to_customer|date:'F d, Y' }}</span> </small>
       </div>
 
       <hr style="margin: 1rem 4rem; opacity: 0.10;">
@@ -92,16 +92,16 @@
             <h6 class="card-title text-center">Pathogen</h6>
             <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
             <p class="card-text text-muted text-center">{{ history.get_pathogen_display }}</p>
-          
+
           </div>
         </div>
-        
+
         <div class="card" style="min-width: 170px; max-width: 200px; border: none; background-color: #f7f7f8;">
           <div class="card-body">
             <h6 class="card-title text-center">Food</h6>
             <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
             <p class="card-text text-muted text-center">{{ history.get_food_display }}</p>
-          
+
           </div>
         </div>
         <div class="card" style="min-width: 170px; max-width: 200px; border: none; background-color: #f7f7f8;"">
@@ -109,12 +109,12 @@
             <h6 class="card-title text-center">Category</h6>
             <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
             <p class="card-text text-muted text-center">{{ history.get_category_display }}</p>
-          
+
           </div>
         </div>
       </div>
 
-      <h2 class="article-title mt-2">{{ query.subject_line }}</h2>
+      <h2 class="article-title mt-2">{{ history.subject_line }}</h2>
       <p class="article-content" style="overflow: auto;">{{ history.query_text }}</p>
 
       <hr style="margin: 1rem 4rem; opacity: 0.10;">
@@ -122,9 +122,9 @@
       <h5>Response:</h5>
       <p class="article-content" style="overflow: auto;">{{ history.query_response }}</p>
 
-      
+
         <small class="article-footer bg-yellow key-bg">{{ history.key_words }}</small>
-      
+
 
       <hr style="margin: 1rem 4rem; opacity: 0.10;">
 
