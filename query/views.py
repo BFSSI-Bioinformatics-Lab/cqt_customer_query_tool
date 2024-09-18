@@ -22,7 +22,7 @@ class QueryView(LoginRequiredMixin, ListView):
     # paginate_by = 2
 #     order entries from newest to oldest
     ordering = ['-updated']
-    
+
     def get_queryset(self):
         qs = Query.objects.all()
         entry_number_query = self.request.GET.get('entry_id')
@@ -42,7 +42,7 @@ class QueryView(LoginRequiredMixin, ListView):
         if entry_quarter_query != '' and entry_quarter_query is not None:
             qs = qs.filter(quarter__icontains=entry_quarter_query).distinct()
         if entry_text_query != '' and entry_text_query is not None:
-            qs = qs.filter(Q(query_text__icontains=entry_text_query))
+            qs = qs.filter(Q(query_response__icontains=entry_text_query))
             # | Q( author__name__icontains=entry_type_author_query))
 
         else:
@@ -99,7 +99,7 @@ class QueryUpdateView(LoginRequiredMixin, UpdateView):
     #     if self.request.user == item.author:
     #         return True
     #     return False
-    
+
 class QueryDeleteView(LoginRequiredMixin,  DeleteView):
     model = Query
     template_name = 'Query/query_confirm_delete.html'
@@ -113,7 +113,7 @@ class QueryDeleteView(LoginRequiredMixin,  DeleteView):
     #     if self.request.user == item.author:
     #         return True
     #     return False
-    
+
 class QueryHistoryView(LoginRequiredMixin, ListView):
     template_name = "Query/query_history_list.html"
 
@@ -126,10 +126,10 @@ class HistoryDetailView(LoginRequiredMixin, DetailView):
     model = Query.history.model
     template_name = 'Query/history_detail.html'
     context_object_name = 'history'
-    
+
 class QueryDownloadView(LoginRequiredMixin, TemplateView):
     template_name = 'Query/query_download.html'
-    
+
 class QueryToApproveView(LoginRequiredMixin, ListView):
     model = Query
     template_name = 'Query/query_to_approve.html'
@@ -137,16 +137,16 @@ class QueryToApproveView(LoginRequiredMixin, ListView):
     # paginate_by = 2
 #     order entries from newest to oldest
     ordering = ['-updated']
-    
+
     def get_queryset(self):
         qs = Query.objects.all()
         query_section_head = self.request.GET.get('query_section_head')
-        
+
 
         # Use elif to make search "OR" and use if to make it "AND"
         if query_section_head != '' and query_section_head is not None:
             qs = qs.filter(section_head__icontains=query_section_head)
-        
+
 
         else:
             qs = qs
