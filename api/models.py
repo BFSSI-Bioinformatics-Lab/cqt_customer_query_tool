@@ -82,7 +82,7 @@ CATEGORY = (
 HEAD = (
     ('Angela Catford', 'Angela Catford'),
     ('Marie Breton', 'Marie Breton'),
-    ('Véronique Albert', 'Véronique Albert'),
+    ('Veronique Albert', 'Véronique Albert'),
     ('Not Applicable / Other', 'Not Applicable / Other')
 )
 
