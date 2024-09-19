@@ -25,8 +25,8 @@
                     name="entry_keywords" placeholder="Keywords..."/>
           </div>
       </div> -->
-      
-      
+
+
       <div class="form-group">
           <div class="input-group" style="width: 170px">
               <input class="form-control py-2 border-right-0 border" type="search"
@@ -52,13 +52,13 @@
       <button type="submit"
               class="btn btn-outline-steel btn-lg">Search</button>
     </div>
-     
+
     <!-- Second line containing the search fields -->
     <div class="form-row d-flex flex-row justify-content-start mb-4" id="search-add">
-      
-      <div><button id="btn-add" type="button" class="bg-final btn btn-sm status-bg" style="margin-right: 12px;" 
+
+      <div><button id="btn-add" type="button" class="bg-final btn btn-sm status-bg" style="margin-right: 12px;"
       onclick="addSearchField()">+</button></div>
-      
+
       <div class="form-group">
         <div class="input-group" style="width: 230px">
             <input class="form-control py-2 border-right-0 border" type="search"
@@ -66,14 +66,14 @@
         </div>
       </div>
 
-      
+
     </div>
   </form>
 {% endblock %}
 
 
 {% block content %}
-    
+
 
   {% if queries %}
     {% for query in queries %}
@@ -81,7 +81,7 @@
         <div class="media-body">
             <div class="article-metadata d-flex flex-column justify-content-between">
                 <div class="d-flex flex-row mb-2 justify-content-between">
-                    
+
                     <div class="d-flex flex-row">
                         <!-- <h4 class="mr-2 mb-0" style="color: #007880; font-size: 22px"
                         href="#">{{ query.evaluator }}</h4> -->
@@ -91,12 +91,12 @@
                             Query # {{ query.id }}</small>
                         <small class=" d-flex align-items-center" style="margin-left: 10px;">
                             Last updated: <span class="text-muted d-flex align-items-end" style="margin-left: 4px;">{{ query.updated|date:'F d, Y' }}</span> </small>
-                        
+
                     </div>
 
                     <div class="d-flex flex-row">
                       <small class=" d-flex align-items-center" style="margin-left: 10px;">
-                        Section Head: <span class="text-muted d-flex align-items-end" style="margin-left: 4px;">{{ query.section_head }}</span> 
+                        Section Head: <span class="text-muted d-flex align-items-end" style="margin-left: 4px;">{{ query.section_head }}</span>
                       </small>
                     </div>
 
@@ -108,7 +108,7 @@
                         {% else %}
                             <small class="article-footer bg-progress status-bg">{{ query.get_status_display }}</small>
                         {% endif %}
-                        
+
                         {% if query.get_quarter_display == 'Q1' %}
                           <small class="article-footer bg-q1 status-bg"
                           >{{ query.get_quarter_display }}</small>
@@ -121,32 +121,32 @@
                         {% endif %}
                     </div>
                 </div>
-                
+
                 <div class="d-flex flex-row mb-2 justify-content-around">
                     <div class="d-flex flex-row">
                         <small class=" d-flex align-items-end" style="margin-left: 1px; margin-right: 10px;">
-                            Date in to BMH: 
+                            Date in to BMH:
                             <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_BMH_received|date:'F d, Y' }}</span> </small>
                         <span class="vr"></span>
                         <small class=" d-flex align-items-end" style="margin-left: 10px; margin-right: 10px;">
-                            Date in to Evaluator: 
+                            Date in to Evaluator:
                             <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_assigned_to_evaluator|date:'F d, Y' }}</span> </small>
                         <span class="vr"></span>
                             <small class=" d-flex align-items-center" style="margin-left: 10px; min-width: 245px;">
-                                Date in to Section Head: 
+                                Date in to Section Head:
                             <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_to_sections_head_for_approval|date:'F d, Y' }}</span> </small>
-                        
+
                     </div>
                 </div>
 
-                <!-- <div class="d-flex flex-row mb-2 justify-content-around">     
+                <!-- <div class="d-flex flex-row mb-2 justify-content-around">
                         <small class=" d-flex align-items-end" style="margin-left: 10px;">
-                            Date Due: 
+                            Date Due:
                             <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_due|date:'F d, Y' }}</span> </small>
                         <span class="vr"></span>
                         <small class=" d-flex align-items-end" style="margin-left: 10px;">
-                            Date out of BMH:  
-                            <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_to_customer|date:'F d, Y' }}</span> </small>   
+                            Date out of BMH:
+                            <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_to_customer|date:'F d, Y' }}</span> </small>
                 </div> -->
 
             </div>
@@ -167,15 +167,15 @@
 
             <hr>
             <div class="d-flex flex-row mb-2 justify-content-around">
-                      
+
                 <small class=" d-flex align-items-end" style="margin-left: 10px;">
-                    Date Due: 
+                    Date Due:
                     <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_due|date:'F d, Y' }}</span> </small>
                 <span class="vr"></span>
                 <small class=" d-flex align-items-end" style="margin-left: 10px;">
-                    Date out of BMH:  
+                    Date out of BMH:
                     <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_to_customer|date:'F d, Y' }}</span> </small>
-                
+
             </div>
         </div>
       </article>
@@ -193,25 +193,25 @@
     {% if is_paginated %}
 
       {% if page_obj.has_previous %}
-        <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin" href="?page=1">First</a>
+        <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin" href="?{{ request.GET.urlencode }}&page=1">First</a>
         <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin"
-           href="?page={{ page_obj.previous_page_number }}"><</a>
+           href="?{{ request.GET.urlencode }}&page={{ page_obj.previous_page_number }}"><</a>
       {% endif %}
 
   {#    Show number of pages#}
       {% for num in page_obj.paginator.page_range %}
         {% if page_obj.number == num %}
-          <a class="btn btn-steel btn-sm mb-4 btn-l-margin" href="?page={{ num }}">{{ num }}</a>
+          <a class="btn btn-steel btn-sm mb-4 btn-l-margin" href="?{{ request.GET.urlencode }}&page={{ num }}">{{ num }}</a>
         {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-          <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin" href="?page={{ num }}">{{ num }}</a>
+          <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin" href="?{{ request.GET.urlencode }}&page={{ num }}">{{ num }}</a>
         {% endif %}
       {% endfor %}
 
       {% if page_obj.has_next %}
         <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin"
-           href="?page={{ page_obj.next_page_number }}"> ></a>
+           href="?{{ request.GET.urlencode }}&page={{ page_obj.next_page_number }}"> ></a>
         <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin"
-           href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+           href="?{{ request.GET.urlencode }}&page={{ page_obj.paginator.num_pages }}">Last</a>
       {% endif %}
 
     {% endif %}
@@ -253,7 +253,7 @@
       let deleteButton = document.createElement('button');
       deleteButton.textContent = '-';
       deleteButton.type = 'button';
-      deleteButton.className = 'btn-red btn btn-sm status-bg'; 
+      deleteButton.className = 'btn-red btn btn-sm status-bg';
       deleteButton.onclick = function() {
           deleteSearchField(newInput);
       };
@@ -261,7 +261,7 @@
       // Apply margin-left: 10px to the delete button
       deleteButton.style.marginLeft = '10px';
       newInput.style.marginLeft = '10px';
-    
+
 
       // Create a container div to hold the search field and delete button
       let fieldContainer = document.createElement('div');
