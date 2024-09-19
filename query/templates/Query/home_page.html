@@ -9,48 +9,42 @@
       <div class="form-group">
           <div class="input-group" style="width: 150px">
               <input class="form-control py-2 border-right-0 border" type="search"
-                    name="entry_id" placeholder="Entry #"/>
+                    name="entry_id" placeholder="Entry #"
+              value="{{ request.GET.entry_id|default:'' }}"/>
           </div>
       </div>
       <div class="form-group">
           <div class="input-group" style="width: 150px">
               <input class="form-control py-2 border-right-0 border" type="search"
-                    name="entry_status" placeholder="Status..."/>
+                    name="entry_status" placeholder="Status..."
+              value="{{ request.GET.entry_status|default:'' }}"/>
 
           </div>
       </div>
-      <!-- <div class="form-group">
-          <div class="input-group" style="width: 230px">
-              <input class="form-control py-2 border-right-0 border" type="search"
-                    name="entry_keywords" placeholder="Keywords..."/>
-          </div>
-      </div> -->
-
 
       <div class="form-group">
           <div class="input-group" style="width: 170px">
               <input class="form-control py-2 border-right-0 border" type="search"
-                    name="entry_quarter" placeholder="Quarter (eg:Q1)"/>
-  {#                    <span class="input-group-append">#}
-  {#                        <div class="input-group-text bg-transparent">#}
-  {#                            <i class="fa fa-search"></i>#}
-  {#                        </div>#}
-  {#                    </span>#}
+                    name="entry_quarter" placeholder="Quarter (eg:Q1)"
+              value="{{ request.GET.entry_quarter|default:'' }}"/>
+
           </div>
       </div>
       <div class="form-group">
           <div class="input-group" style="width: 250px">
               <input class="form-control py-2 border-right-0 border" type="search"
-                    name="entry_content" placeholder="In content..."/>
-  {#                    <span class="input-group-append">#}
-  {#                        <div class="input-group-text bg-transparent">#}
-  {#                            <i class="fa fa-search"></i>#}
-  {#                        </div>#}
-  {#                    </span>#}
+                    name="entry_content" placeholder="In response content..."
+              "{{ request.GET.entry_content|default:'' }}"/>
+
           </div>
       </div>
-      <button type="submit"
-              class="btn btn-outline-steel btn-lg">Search</button>
+      <div>
+        <button type="submit"
+              class="btn btn-secondary btn-lg">Search</button>
+        <button type="button" class="btn btn-outline-steel" style="margin-left: 10px"
+              onclick="window.location.href='{{ request.path }}'">Reset</button>
+      </div>
+
     </div>
 
     <!-- Second line containing the search fields -->
@@ -62,23 +56,40 @@
       <div class="form-group">
         <div class="input-group" style="width: 230px">
             <input class="form-control py-2 border-right-0 border" type="search"
-                  name="entry_keywords" placeholder="Keywords..."/>
+                  name="entry_keywords" placeholder="Keywords..."
+                  value="{{ request.GET.entry_keywords|default:'' }}"/>
         </div>
       </div>
-
-
     </div>
-  
-{#    <div>#}
-{#        <label for="sort_by">Sort by:</label>#}
-{#        <select name="sort_by" id="sort_by">#}
-{#            <option value="">--Select--</option>#}
-{#            <option value="id">ID</option>#}
-{#            <option value="number_RDIMS">RDIMS</option>#}
-{#            <option value="rau">RAU</option>#}
-{#        </select>#}
-{#        <button type="submit">Sort</button>#}
-{#    </div>#}
+
+{#    <hr style="margin: 1rem 4rem; opacity: 0.10;">#}
+
+    <!-- Sorting Fields -->
+    <div class="form-row d-flex flex-row justify-content-start mb-4">
+      <div>
+        <label for="sort_by">Sort by:</label>
+        <select name="sort_by" id="sort_by" style="width: 150px; display:inline"
+                class="form-control py-2 border-right-0 border">
+            <option value="">Select</option>
+            <option value="id" {% if request.GET.sort_by == 'id' %} selected {% endif %}>ID</option>
+            <option value="number_RDIMS" {% if request.GET.sort_by == 'number_RDIMS' %} selected {% endif %}>RDIMS</option>
+            <option value="rau" {% if request.GET.sort_by == 'rau' %} selected {% endif %}>RAU</option>
+        </select>
+      </div>
+      <div style="margin-left: 1rem">
+        <label for="sort_order">Sort order:</label>
+        <select name="sort_order" id="sort_order" style="width: 150px; display:inline"
+                class="form-control py-2 border-right-0 border">
+            <option value="asc" {% if request.GET.sort_order == 'asc' %} selected {% endif %}>Ascending</option>
+            <option value="desc" {% if request.GET.sort_order == 'desc' %} selected {% endif %}>Descending</option>
+        </select>
+      </div>
+
+        <button type="submit" class="btn btn-secondary"
+                style="margin-left: 1rem">Sort</button>
+        <button type="button" class="btn btn-outline-steel" style="margin-left: 10px"
+                onclick="resetSortFields()">Reset Sort</button>
+    </div>
   </form>
 {% endblock %}
 
@@ -161,9 +172,9 @@
                 </div> -->
 
             </div>
-            
+
             <h6 class="mt-2">RAU: <span class="text-secondary">{{ query.rau }}</span> </h6>
-            <h6 class="mt-2">RDIMS: <span class="text-secondary">{{ query.number_RDIMS }}</span> 
+            <h6 class="mt-2">RDIMS: <span class="text-secondary">{{ query.number_RDIMS }}</span>
             </h6>
             <h3 class="mt-2">
                 <a class="article-title mt-2" href="{% url 'query_detail' pk=query.id %}"
@@ -288,6 +299,15 @@
     function deleteSearchField(fieldToRemove) {
         let form = document.getElementById('search-add');
         form.removeChild(fieldToRemove.parentNode);
+    }
+
+    function resetSortFields() {
+        document.getElementById('sort_by').selectedIndex = 0;
+        document.getElementById('sort_order').selectedIndex = 0;
+        const url = new URL(window.location.href);
+        url.searchParams.delete('sort_by');
+        url.searchParams.delete('sort_order');
+        window.location.href = url.toString();
     }
   </script>
 

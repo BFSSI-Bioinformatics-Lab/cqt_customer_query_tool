@@ -19,7 +19,7 @@ class QueryView(LoginRequiredMixin, ListView):
     model = Query
     template_name = 'Query/home_page.html'
     context_object_name = 'queries'
-    paginate_by = 20
+    paginate_by = 5
 #     order entries from newest to oldest
     ordering = ['-updated']
 
@@ -30,8 +30,11 @@ class QueryView(LoginRequiredMixin, ListView):
         entry_keywords_query = self.request.GET.get('entry_keywords')
         entry_quarter_query = self.request.GET.get('entry_quarter')
         entry_text_query = self.request.GET.get('entry_content')
+        sort_by = self.request.GET.get('sort_by')
+        sort_order = self.request.GET.get('sort_order')
 
         # Use elif to make search "OR" and use if to make it "AND"
+        # Filtering logic based on search criteria
         if entry_number_query != '' and entry_number_query is not None:
             qs = qs.filter(id__icontains=entry_number_query)
         if entry_status_query != '' and entry_status_query is not None:
@@ -45,10 +48,27 @@ class QueryView(LoginRequiredMixin, ListView):
             qs = qs.filter(Q(query_response__icontains=entry_text_query))
             # | Q( author__name__icontains=entry_type_author_query))
 
-        else:
-            qs = qs
+        # Sorting logic based on selected option
+        if sort_by:
+            if sort_order == 'asc':
+                if sort_by == 'id':
+                    qs = qs.order_by('id')
+                elif sort_by == 'rau':
+                    qs = qs.order_by('rau')
+                elif sort_by == 'number_RDIMS':
+                    qs = qs.order_by('number_RDIMS')
+            elif sort_order == 'desc':
+                if sort_by == 'id':
+                    qs = qs.order_by('-id')
+                elif sort_by == 'rau':
+                    qs = qs.order_by('-rau')
+                elif sort_by == 'number_RDIMS':
+                    qs = qs.order_by('-number_RDIMS')
 
-        return qs.order_by('-updated')
+        if not sort_by:
+            qs = qs.order_by('-updated')
+
+        return qs
 
 class UserListView(LoginRequiredMixin, ListView):
     model = Query
