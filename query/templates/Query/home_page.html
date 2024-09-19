@@ -68,6 +68,17 @@
 
 
     </div>
+  
+{#    <div>#}
+{#        <label for="sort_by">Sort by:</label>#}
+{#        <select name="sort_by" id="sort_by">#}
+{#            <option value="">--Select--</option>#}
+{#            <option value="id">ID</option>#}
+{#            <option value="number_RDIMS">RDIMS</option>#}
+{#            <option value="rau">RAU</option>#}
+{#        </select>#}
+{#        <button type="submit">Sort</button>#}
+{#    </div>#}
   </form>
 {% endblock %}
 
@@ -150,10 +161,13 @@
                 </div> -->
 
             </div>
-
-            <h2 class="mt-2">
+            
+            <h6 class="mt-2">RAU: <span class="text-secondary">{{ query.rau }}</span> </h6>
+            <h6 class="mt-2">RDIMS: <span class="text-secondary">{{ query.number_RDIMS }}</span> 
+            </h6>
+            <h3 class="mt-2">
                 <a class="article-title mt-2" href="{% url 'query_detail' pk=query.id %}"
-            target="_blank">{{ query.subject_line }}</a></h2>
+            target="_blank">{{ query.subject_line }}</a></h3>
                 <!-- Add style = white-space:nowrap to add 3 points at the end -->
             <p class="article-content  text-truncate"
              style="max-height: 70px; ">{{ query.query_text }}
