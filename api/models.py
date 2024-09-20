@@ -82,6 +82,7 @@ CATEGORY = (
 HEAD = (
     ('Angela Catford', 'Angela Catford'),
     ('Marie Breton', 'Marie Breton'),
+    ('Veronique Albert', 'Véronique Albert'),
     ('Not Applicable / Other', 'Not Applicable / Other')
 )
 
@@ -133,8 +134,14 @@ class Query(models.Model):
     def get_absolute_url(self):
         return reverse('query_detail', kwargs={'pk': self.pk})
 
+    # def keywords_as_list(self):
+    #     return self.key_words.split(',')
     def keywords_as_list(self):
-        return self.key_words.split(',')
+        if self.key_words:
+            return self.key_words.split(',')
+        return []
+
+
 
 class UserActivity(models.Model):
     name = 'userActivity'
