@@ -9,71 +9,93 @@
       <div class="form-group">
           <div class="input-group" style="width: 150px">
               <input class="form-control py-2 border-right-0 border" type="search"
-                    name="entry_id" placeholder="Entry #"/>
+                    name="entry_id" placeholder="Entry #"
+              value="{{ request.GET.entry_id|default:'' }}"/>
           </div>
       </div>
       <div class="form-group">
           <div class="input-group" style="width: 150px">
               <input class="form-control py-2 border-right-0 border" type="search"
-                    name="entry_status" placeholder="Status..."/>
+                    name="entry_status" placeholder="Status..."
+              value="{{ request.GET.entry_status|default:'' }}"/>
 
           </div>
       </div>
-      <!-- <div class="form-group">
-          <div class="input-group" style="width: 230px">
-              <input class="form-control py-2 border-right-0 border" type="search"
-                    name="entry_keywords" placeholder="Keywords..."/>
-          </div>
-      </div> -->
-      
-      
+
       <div class="form-group">
           <div class="input-group" style="width: 170px">
               <input class="form-control py-2 border-right-0 border" type="search"
-                    name="entry_quarter" placeholder="Quarter (eg:Q1)"/>
-  {#                    <span class="input-group-append">#}
-  {#                        <div class="input-group-text bg-transparent">#}
-  {#                            <i class="fa fa-search"></i>#}
-  {#                        </div>#}
-  {#                    </span>#}
+                    name="entry_quarter" placeholder="Quarter (eg:Q1)"
+              value="{{ request.GET.entry_quarter|default:'' }}"/>
+
           </div>
       </div>
       <div class="form-group">
           <div class="input-group" style="width: 250px">
               <input class="form-control py-2 border-right-0 border" type="search"
-                    name="entry_content" placeholder="In content..."/>
-  {#                    <span class="input-group-append">#}
-  {#                        <div class="input-group-text bg-transparent">#}
-  {#                            <i class="fa fa-search"></i>#}
-  {#                        </div>#}
-  {#                    </span>#}
+                    name="entry_content" placeholder="In response content..."
+              "{{ request.GET.entry_content|default:'' }}"/>
+
           </div>
       </div>
-      <button type="submit"
-              class="btn btn-outline-steel btn-lg">Search</button>
+      <div>
+        <button type="submit"
+              class="btn btn-secondary btn-lg">Search</button>
+        <button type="button" class="btn btn-outline-steel" style="margin-left: 10px"
+              onclick="window.location.href='{{ request.path }}'">Reset</button>
+      </div>
+
     </div>
-     
+
     <!-- Second line containing the search fields -->
     <div class="form-row d-flex flex-row justify-content-start mb-4" id="search-add">
-      
-      <div><button id="btn-add" type="button" class="bg-final btn btn-sm status-bg" style="margin-right: 12px;" 
+
+      <div><button id="btn-add" type="button" class="bg-final btn btn-sm status-bg" style="margin-right: 12px;"
       onclick="addSearchField()">+</button></div>
-      
+
       <div class="form-group">
         <div class="input-group" style="width: 230px">
             <input class="form-control py-2 border-right-0 border" type="search"
-                  name="entry_keywords" placeholder="Keywords..."/>
+                  name="entry_keywords" placeholder="Keywords..."
+                  value="{{ request.GET.entry_keywords|default:'' }}"/>
         </div>
       </div>
+    </div>
 
-      
+{#    <hr style="margin: 1rem 4rem; opacity: 0.10;">#}
+
+    <!-- Sorting Fields -->
+    <div class="form-row d-flex flex-row justify-content-start mb-4">
+      <div>
+        <label for="sort_by">Sort by:</label>
+        <select name="sort_by" id="sort_by" style="width: 150px; display:inline"
+                class="form-control py-2 border-right-0 border">
+            <option value="">Select</option>
+            <option value="id" {% if request.GET.sort_by == 'id' %} selected {% endif %}>ID</option>
+            <option value="number_RDIMS" {% if request.GET.sort_by == 'number_RDIMS' %} selected {% endif %}>RDIMS</option>
+            <option value="rau" {% if request.GET.sort_by == 'rau' %} selected {% endif %}>RAU</option>
+        </select>
+      </div>
+      <div style="margin-left: 1rem">
+        <label for="sort_order">Sort order:</label>
+        <select name="sort_order" id="sort_order" style="width: 150px; display:inline"
+                class="form-control py-2 border-right-0 border">
+            <option value="asc" {% if request.GET.sort_order == 'asc' %} selected {% endif %}>Ascending</option>
+            <option value="desc" {% if request.GET.sort_order == 'desc' %} selected {% endif %}>Descending</option>
+        </select>
+      </div>
+
+        <button type="submit" class="btn btn-secondary"
+                style="margin-left: 1rem">Sort</button>
+        <button type="button" class="btn btn-outline-steel" style="margin-left: 10px"
+                onclick="resetSortFields()">Reset Sort</button>
     </div>
   </form>
 {% endblock %}
 
 
 {% block content %}
-    
+
 
   {% if queries %}
     {% for query in queries %}
@@ -81,7 +103,7 @@
         <div class="media-body">
             <div class="article-metadata d-flex flex-column justify-content-between">
                 <div class="d-flex flex-row mb-2 justify-content-between">
-                    
+
                     <div class="d-flex flex-row">
                         <!-- <h4 class="mr-2 mb-0" style="color: #007880; font-size: 22px"
                         href="#">{{ query.evaluator }}</h4> -->
@@ -91,12 +113,12 @@
                             Query # {{ query.id }}</small>
                         <small class=" d-flex align-items-center" style="margin-left: 10px;">
                             Last updated: <span class="text-muted d-flex align-items-end" style="margin-left: 4px;">{{ query.updated|date:'F d, Y' }}</span> </small>
-                        
+
                     </div>
 
                     <div class="d-flex flex-row">
                       <small class=" d-flex align-items-center" style="margin-left: 10px;">
-                        Section Head: <span class="text-muted d-flex align-items-end" style="margin-left: 4px;">{{ query.section_head }}</span> 
+                        Section Head: <span class="text-muted d-flex align-items-end" style="margin-left: 4px;">{{ query.section_head }}</span>
                       </small>
                     </div>
 
@@ -108,7 +130,7 @@
                         {% else %}
                             <small class="article-footer bg-progress status-bg">{{ query.get_status_display }}</small>
                         {% endif %}
-                        
+
                         {% if query.get_quarter_display == 'Q1' %}
                           <small class="article-footer bg-q1 status-bg"
                           >{{ query.get_quarter_display }}</small>
@@ -121,39 +143,42 @@
                         {% endif %}
                     </div>
                 </div>
-                
+
                 <div class="d-flex flex-row mb-2 justify-content-around">
                     <div class="d-flex flex-row">
                         <small class=" d-flex align-items-end" style="margin-left: 1px; margin-right: 10px;">
-                            Date in to BMH: 
+                            Date in to BMH:
                             <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_BMH_received|date:'F d, Y' }}</span> </small>
                         <span class="vr"></span>
                         <small class=" d-flex align-items-end" style="margin-left: 10px; margin-right: 10px;">
-                            Date in to Evaluator: 
+                            Date in to Evaluator:
                             <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_assigned_to_evaluator|date:'F d, Y' }}</span> </small>
                         <span class="vr"></span>
                             <small class=" d-flex align-items-center" style="margin-left: 10px; min-width: 245px;">
-                                Date in to Section Head: 
+                                Date in to Section Head:
                             <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_to_sections_head_for_approval|date:'F d, Y' }}</span> </small>
-                        
+
                     </div>
                 </div>
 
-                <!-- <div class="d-flex flex-row mb-2 justify-content-around">     
+                <!-- <div class="d-flex flex-row mb-2 justify-content-around">
                         <small class=" d-flex align-items-end" style="margin-left: 10px;">
-                            Date Due: 
+                            Date Due:
                             <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_due|date:'F d, Y' }}</span> </small>
                         <span class="vr"></span>
                         <small class=" d-flex align-items-end" style="margin-left: 10px;">
-                            Date out of BMH:  
-                            <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_to_customer|date:'F d, Y' }}</span> </small>   
+                            Date out of BMH:
+                            <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_to_customer|date:'F d, Y' }}</span> </small>
                 </div> -->
 
             </div>
 
-            <h2 class="mt-2">
+            <h6 class="mt-2">RAU: <span class="text-secondary">{{ query.rau }}</span> </h6>
+            <h6 class="mt-2">RDIMS: <span class="text-secondary">{{ query.number_RDIMS }}</span>
+            </h6>
+            <h3 class="mt-2">
                 <a class="article-title mt-2" href="{% url 'query_detail' pk=query.id %}"
-            target="_blank">{{ query.subject_line }}</a></h2>
+            target="_blank">{{ query.subject_line }}</a></h3>
                 <!-- Add style = white-space:nowrap to add 3 points at the end -->
             <p class="article-content  text-truncate"
              style="max-height: 70px; ">{{ query.query_text }}
@@ -167,15 +192,15 @@
 
             <hr>
             <div class="d-flex flex-row mb-2 justify-content-around">
-                      
+
                 <small class=" d-flex align-items-end" style="margin-left: 10px;">
-                    Date Due: 
+                    Date Due:
                     <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_due|date:'F d, Y' }}</span> </small>
                 <span class="vr"></span>
                 <small class=" d-flex align-items-end" style="margin-left: 10px;">
-                    Date out of BMH:  
+                    Date out of BMH:
                     <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_to_customer|date:'F d, Y' }}</span> </small>
-                
+
             </div>
         </div>
       </article>
@@ -193,25 +218,25 @@
     {% if is_paginated %}
 
       {% if page_obj.has_previous %}
-        <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin" href="?page=1">First</a>
+        <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin" href="?{{ request.GET.urlencode }}&page=1">First</a>
         <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin"
-           href="?page={{ page_obj.previous_page_number }}"><</a>
+           href="?{{ request.GET.urlencode }}&page={{ page_obj.previous_page_number }}"><</a>
       {% endif %}
 
   {#    Show number of pages#}
       {% for num in page_obj.paginator.page_range %}
         {% if page_obj.number == num %}
-          <a class="btn btn-steel btn-sm mb-4 btn-l-margin" href="?page={{ num }}">{{ num }}</a>
+          <a class="btn btn-steel btn-sm mb-4 btn-l-margin" href="?{{ request.GET.urlencode }}&page={{ num }}">{{ num }}</a>
         {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-          <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin" href="?page={{ num }}">{{ num }}</a>
+          <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin" href="?{{ request.GET.urlencode }}&page={{ num }}">{{ num }}</a>
         {% endif %}
       {% endfor %}
 
       {% if page_obj.has_next %}
         <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin"
-           href="?page={{ page_obj.next_page_number }}"> ></a>
+           href="?{{ request.GET.urlencode }}&page={{ page_obj.next_page_number }}"> ></a>
         <a class="btn btn-outline-steel btn-sm mb-4 btn-l-margin"
-           href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+           href="?{{ request.GET.urlencode }}&page={{ page_obj.paginator.num_pages }}">Last</a>
       {% endif %}
 
     {% endif %}
@@ -253,7 +278,7 @@
       let deleteButton = document.createElement('button');
       deleteButton.textContent = '-';
       deleteButton.type = 'button';
-      deleteButton.className = 'btn-red btn btn-sm status-bg'; 
+      deleteButton.className = 'btn-red btn btn-sm status-bg';
       deleteButton.onclick = function() {
           deleteSearchField(newInput);
       };
@@ -261,7 +286,7 @@
       // Apply margin-left: 10px to the delete button
       deleteButton.style.marginLeft = '10px';
       newInput.style.marginLeft = '10px';
-    
+
 
       // Create a container div to hold the search field and delete button
       let fieldContainer = document.createElement('div');
@@ -274,6 +299,15 @@
     function deleteSearchField(fieldToRemove) {
         let form = document.getElementById('search-add');
         form.removeChild(fieldToRemove.parentNode);
+    }
+
+    function resetSortFields() {
+        document.getElementById('sort_by').selectedIndex = 0;
+        document.getElementById('sort_order').selectedIndex = 0;
+        const url = new URL(window.location.href);
+        url.searchParams.delete('sort_by');
+        url.searchParams.delete('sort_order');
+        window.location.href = url.toString();
     }
   </script>
 

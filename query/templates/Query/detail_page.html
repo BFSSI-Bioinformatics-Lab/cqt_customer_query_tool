@@ -158,10 +158,14 @@
 
       <hr style="margin: 1rem 4rem; opacity: 0.10;">
 
-      <h5>RAU #:</h5>
-      <p class="article-content" style="overflow: auto;">{{ query.rau }}</p>
-
-      <h5>Affiliations:</h5>
+      <h5>RAU #: <span class="text-secondary">{{ query.rau }}</span> </h5>
+{#      <p class="article-content" style="overflow: auto;">{{ query.rau }}</p>#}
+  
+      <h5>RDIMS #: <span class="text-secondary">{{ query.number_RDIMS }}</span></h5>
+{#      <p class="article-content" style="overflow: auto;">{{ query.number_RDIMS }}</p>#}
+      <hr style="margin: 1rem 4rem; opacity: 0.10;">
+  
+      <h5 class="mt-2">Affiliations:</h5>
       <p class="article-content" style="overflow: auto;">{{ query.affiliations }}</p>
 
       <h5>Redirected to:</h5>
