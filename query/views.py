@@ -19,7 +19,7 @@ class QueryView(LoginRequiredMixin, ListView):
     model = Query
     template_name = 'Query/home_page.html'
     context_object_name = 'queries'
-    paginate_by = 5
+    paginate_by = 20
 #     order entries from newest to oldest
     ordering = ['-updated']
 
